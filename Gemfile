@@ -14,15 +14,16 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
-gem 'bootstrap-sass'
+# gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'high_voltage'
 gem 'omniauth'
-gem 'omniauth-twitter'
+gem 'omniauth-slack'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
 gem 'simple_form'
+gem 'slack-ruby-client'
 group :development do
   gem 'better_errors'
   gem 'foreman'

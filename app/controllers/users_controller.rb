@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :except => [:index]
   before_action :correct_user?, :except => [:index]
 
   def index
-    @users = User.all
-    authorize User
+    @team = User.where(team_domain: request.subdomain).first
+
+    @users = @team.coworkers.order('photo_score DESC NULLS LAST').order('last_activity_at DESC NULLS LAST')
+    # authorize User
   end
 
   def edit
@@ -14,7 +16,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(secure_params)
-      redirect_to @user
+      redirect_to users_path
     else
       render :edit
     end
@@ -22,13 +24,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    authorize @user
+    # authorize @user
   end
 
   private
 
   def secure_params
-    params.require(:user).permit(:email)
+    params.require(:user).permit(:photo_score)
   end
 
 end

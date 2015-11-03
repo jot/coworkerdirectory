@@ -1,0 +1,14 @@
+.row
+  .col-md-4
+    .card
+      = image_tag @user.image_url, :class=>"card-img", :width=>"100%"
+      .card-img-overlay
+        %h4.card-title
+          %span.label.label-default= @user.full_name
+  .col-md-4
+    = simple_form_for(@user) do |f|
+      .form-inputs
+        = f.input :photo_score
+
+      .form-actions
+        = f.button :submit

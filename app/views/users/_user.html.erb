@@ -1,12 +1,13 @@
-<td>
-  <%= link_to user.email, user %>
-</td>
-<td>
-  <%= form_for(user) do |f| %>
-    <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-    <%= f.submit 'Change Role', :class => 'button-xs' %>
-  <% end %>
-</td>
-<td>
-  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs') unless user == current_user %>
-</td>
+<%- unless user.is_deleted? %>
+<div class="col-md-4">
+<div class="card">
+  <%= image_tag user.image_url, :class=>"card-img", :width=>"100%" %>
+  <div class="card-img-overlay">
+    <h4 class="card-title"><span class="label label-default"><%= user.full_name %></span></h4>
+<!--     <p><%= time_ago_in_words user.last_activity_at unless user.last_activity_at.nil?%></p>
+    <p><span class="label label-default"><%= user.photo_score %></span></p>
+    <%= link_to "Edit", edit_user_path(user) %>
+ -->  </div>
+</div>
+</div>
+<% end %>

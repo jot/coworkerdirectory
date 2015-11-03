@@ -1,11 +1,12 @@
 !!!
-%html
+%html{:lang => "en"}
   %head
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= content_for?(:title) ? yield(:title) : 'Coworkerdirectory'
-    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Coworkerdirectory'}"}
+    / Required meta tags always come first
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "ie=edge", "http-equiv" => "x-ua-compatible"}/
+    / Bootstrap CSS
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
     %header
@@ -13,3 +14,4 @@
     %main{:role => "main"}
       = render 'layouts/messages'
       = yield
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true

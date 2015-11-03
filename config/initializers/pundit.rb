@@ -19,4 +19,4 @@ module PunditHelper
 
 end
 
-ApplicationController.send :include, PunditHelper
+ApplicationController.send :include, PunditHelper unless Rails.env.development?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103170058) do
+ActiveRecord::Schema.define(version: 20151103231654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,9 +20,22 @@ ActiveRecord::Schema.define(version: 20151103170058) do
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "role"
+    t.json     "slack_auth_data"
+    t.json     "slack_api_data"
+    t.json     "slack_reactions_data"
+    t.datetime "slack_auth_data_updated_at"
+    t.datetime "slack_api_data_updated_at"
+    t.datetime "slack_reactions_data_updated_at"
+    t.string   "team_slack_id"
+    t.string   "team_name"
+    t.string   "team_domain"
+    t.datetime "last_activity_at"
+    t.json     "channels"
+    t.json     "emoji"
+    t.integer  "photo_score"
   end
 
 end
