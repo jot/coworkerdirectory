@@ -111,13 +111,13 @@ class User < ActiveRecord::Base
   end
 
   def is_deleted?
-    slack_api_data["deleted"]
+    slack_api_data["deleted"] unless slack_api_data.empty?
   end
 
   private
 
   def slack_token
-    u = User.where("slack_auth_data is not null").first
+    u = coworkers.where("slack_auth_data is not null").first
     u.slack_auth_data['credentials']['token']
   end
 
