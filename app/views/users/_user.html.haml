@@ -1,0 +1,16 @@
+.card
+  .image
+    = image_tag user.image_url
+  .content
+    .header
+      = user.full_name
+    .meta
+      %a Friends
+    .description
+      Matthew is an interior designer living in New York.
+  .extra.content
+    %span.right.floated
+      Joined in 2013
+    %span
+      %i.user.icon
+      =user.photo_score

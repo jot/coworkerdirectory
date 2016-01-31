@@ -1,7 +1,14 @@
-%nav.navbar.navbar-light.bg-faded
-  %button.navbar-toggler.hidden-sm-up{"data-target" => "#exCollapsingNavbar", "data-toggle" => "collapse", :type => "button"}
-    \☰
-  #exCollapsingNavbar.collapse.navbar-toggleable-xs
-    = link_to "#{@team.team_name unless @team.nil?} Coworker Directory", root_path, class: 'navbar-brand'
-    %ul.nav.navbar-nav.navbar-right
-      = render 'layouts/navigation_links'
+.ui.fixed.inverted.menu
+  .ui.container
+    %a.header.item{:href => "#"}
+      %img.logo{:src => "/assets/cabinbot-logo-small.png"}/
+      Cabinbot
+    -if user_signed_in?
+      -if current_user.try(:admin?)
+        = link_to 'Users', users_path, :class=>"item"
+    .right.menu
+      .item
+        -if user_signed_in?
+          = link_to 'Sign out', signout_path, :class=>"ui.button"
+        -else
+          = link_to 'Sign in', signin_path, :class=>"ui.primary.button"

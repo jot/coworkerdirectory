@@ -12,8 +12,8 @@
  *
  *= require_tree .
  *= require_self
+
  */
 
-main {
-  margin-top: 20px; // accommodate the navbar
-}
+@import "semantic-ui";
+@import "semantic-ui/views/comment";

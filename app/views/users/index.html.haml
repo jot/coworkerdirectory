@@ -1,0 +1,3 @@
+.ui.link.cards
+  - @users.each do |user|
+    = render user unless user.is_bot?

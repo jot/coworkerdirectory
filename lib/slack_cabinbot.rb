@@ -1,0 +1,7 @@
+require 'slack_cabinbot/service'
+require 'slack_cabinbot/server'
+require 'slack_cabinbot/commands/unknown'
+require 'slack_cabinbot/commands/ping'
+require 'slack_cabinbot/commands/help'
+require 'slack_cabinbot/commands/hi'
+require 'slack_cabinbot/commands/about'

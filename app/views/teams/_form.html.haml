@@ -1,0 +1,14 @@
+= simple_form_for(@team) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :uid
+    = f.input :domain
+    = f.input :email_domain
+    = f.input :bot_user_id
+    = f.input :bot_access_token
+    = f.input :slack_data
+
+  .form-actions
+    = f.button :submit

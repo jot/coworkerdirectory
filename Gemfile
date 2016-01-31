@@ -18,12 +18,14 @@ end
 gem 'haml-rails'
 gem 'high_voltage'
 gem 'omniauth'
-gem 'omniauth-slack'
+gem 'omniauth-slack', :github => "jot/omniauth-slack", :branch => "dynamic-scopes"
 gem 'pg'
 gem 'puma'
 gem 'pundit'
 gem 'simple_form'
-gem 'slack-ruby-client'
+gem 'slack-ruby-bot'
+gem 'eventmachine'
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 group :development do
   gem 'better_errors'
   gem 'foreman'

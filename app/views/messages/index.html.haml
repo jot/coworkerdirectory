@@ -1,0 +1,20 @@
+.ui.comments
+  %h3.ui.dividing.header Messages
+  - @messages.each do |message|
+    .comment
+      %a.avatar
+        %img{:src => "/images/avatar/small/matt.jpg"}/
+      .content
+        %a.author
+          = message.team_uid
+          = message.channel_uid
+          = message.user_uid
+        .metadata
+          %span.date
+            =message.timestamp
+        .text
+          = message.text
+        .actions
+          %a.reply Reply
+          = link_to 'Show', message, :class=>"reply"
+

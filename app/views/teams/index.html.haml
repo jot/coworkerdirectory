@@ -1,0 +1,33 @@
+%h1 Listing teams
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Uid
+      %th Domain
+      %th Email domain
+      %th Bot user
+      %th Bot access token
+      %th Slack data
+      %th
+      %th
+      %th
+
+  %tbody
+    - @teams.each do |team|
+      %tr
+        %td= team.name
+        %td= team.uid
+        %td= team.domain
+        %td= team.email_domain
+        %td= team.bot_user_id
+        %td= team.bot_access_token
+        %td= team.slack_data
+        %td= link_to 'Show', team
+        %td= link_to 'Edit', edit_team_path(team)
+        %td= link_to 'Destroy', team, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Team', new_team_path

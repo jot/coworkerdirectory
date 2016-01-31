@@ -1,0 +1,45 @@
+%p#notice= notice
+
+%p
+  %b Channel uid:
+  = @message.channel_uid
+%p
+  %b Channel:
+  = @message.channel_id
+%p
+  %b Team uid:
+  = @message.team_uid
+%p
+  %b Team:
+  = @message.team_id
+%p
+  %b Text:
+  = @message.text
+%p
+  %b Ts:
+  = @message.ts
+%p
+  %b Timestamp:
+  = @message.timestamp
+%p
+  %b Message type:
+  = @message.message_type
+%p
+  %b Message subtype:
+  = @message.message_subtype
+%p
+  %b User uid:
+  = @message.user_uid
+%p
+  %b User:
+  = @message.user_id
+%p
+  %b Properties:
+  = @message.properties
+%p
+  %b Slack data:
+  = @message.slack_data
+
+= link_to 'Edit', edit_message_path(@message)
+\|
+= link_to 'Back', messages_path

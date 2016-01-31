@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   after_initialize :set_default_role, :if => :new_record?
 
   def coworkers
-    User.where(team_slack_id: self.team_slack_id)
+    team.coworkers
   end
 
   def set_default_role
@@ -15,12 +15,14 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    self.slack_api_data["profile"]["real_name"]
+    self.slack_api_data["profile"]["real_name"] unless slack_api_data.nil?
   end
 
   def image_url
-    return slack_api_data["profile"]["image_original"] unless slack_api_data["profile"]["image_original"].blank?
-    return slack_api_data["profile"]["image_192"]
+    unless slack_api_data.nil?
+      return slack_api_data["profile"]["image_original"] unless  slack_api_data["profile"]["image_original"].blank?
+      return slack_api_data["profile"]["image_192"]
+    end
   end
 
   def self.create_with_omniauth(auth)
@@ -106,13 +108,63 @@ class User < ActiveRecord::Base
     slack_client.users_list["members"]
   end
 
-  def slack_client
+
+  def team_uid
+    team_slack_id
+  end
+
+  def slack_client_user
     Slack::Web::Client.new(:token=>slack_token)
   end
 
-  def is_deleted?
-    slack_api_data["deleted"] unless slack_api_data.empty?
+
+  def slack_client
+    Slack::Web::Client.new(:token=>slack_bot_token)
   end
+
+
+  def rtm_slack_client
+    Slack::RealTime::Client.new(:token=>slack_bot_token)
+  end
+
+  def is_deleted?
+    slack_api_data["deleted"] unless slack_api_data.nil?
+  end
+
+  def slack_bot_token
+    team.bot_access_token
+  end
+
+  def slack_bot_user_id
+    team.bot_user_id
+  end
+
+  def send_im(message)
+    im = slack_client.im_open(user: uid)
+    Message.create_from_slack_data(slack_client.chat_postMessage(channel: im["channel"]["id"], text: message, as_user: true, parse: "full"), team_uid)
+  end
+
+  def team
+    Team.find_by_uid(team_uid)
+  end
+
+  def update_team
+    team_data = slack_client_user.team_info
+
+    Team.where(uid: team_uid).first_or_create do |team|
+      team.name = team_data["team"]["name"]
+      team.domain = team_data["team"]["domain"]
+      team.email_domain = team_data["team"]["email_domain"]
+      team.bot_user_id = slack_auth_data["extra"]["bot_info"]["bot_user_id"] unless slack_auth_data["extra"]["bot_info"].nil?
+      team.bot_access_token = slack_auth_data["extra"]["bot_info"]["bot_access_token"] unless slack_auth_data["extra"]["bot_info"].nil?
+      team.slack_data = team_data
+    end
+  end
+
+  def is_bot?
+    slack_api_data["is_bot"]
+  end
+
 
   private
 

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :correct_user?, :except => [:index]
 
   def index
-    @team = User.where(team_domain: request.subdomain).first
+    @team = Team.where(domain: request.subdomain).first
 
     @users = @team.coworkers.order('photo_score DESC NULLS LAST').order('last_activity_at DESC NULLS LAST')
     # authorize User
