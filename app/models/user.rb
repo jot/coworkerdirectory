@@ -165,12 +165,23 @@ class User < ActiveRecord::Base
     slack_api_data["is_bot"]
   end
 
+  def active_users
+    slack_client_user.users_list(:presence=>1)["members"].select{|u| u["presence"]=="active"}
+  end
+
+  def invite(email)
+    slack_client_user.post("users.admin.invite",:email=>email)
+  end
 
   private
 
   def slack_token
-    u = coworkers.where("slack_auth_data is not null").first
-    u.slack_auth_data['credentials']['token']
+    # if team.present?
+    #   u = coworkers.where("slack_auth_data is not null").first
+    #   u.slack_auth_data['credentials']['token']
+    # else
+      slack_auth_data['credentials']['token']
+    # end
   end
 
 end
