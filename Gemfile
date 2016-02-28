@@ -24,6 +24,7 @@ gem 'resque', "~> 1.22.0"
 gem 'puma'
 gem 'pundit'
 gem 'simple_form'
+# gem 'giphy', :github => "heyalexchoi/giphy", :branch => "fix-translate"
 gem 'slack-ruby-bot'
 gem 'eventmachine'
 gem 'koudoku'

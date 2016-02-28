@@ -33,8 +33,11 @@ class Team < ActiveRecord::Base
     channels.where("slack_data @> ?",{is_general: true}.to_json).first
   end
 
-  def post_to_general(message)
-    Message.create_from_slack_data(slack_client.chat_postMessage(channel: general_channel.uid, text: message, as_user: true), self.uid)
+  def post_to_general(message, image_url=nil)
+    if image_url.present?
+      attachments = [{"fallback":"A fun gif", "image_url": image_url}]
+    end
+    Message.create_from_slack_data(slack_client.chat_postMessage(channel: general_channel.uid, text: message, as_user: true, attachments: attachments), self.uid)
   end
 
   def send_im(user_uid, message)
