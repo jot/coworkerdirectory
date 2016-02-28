@@ -8,9 +8,9 @@ module SlackCabinbot
 
         if message.answer.nil?
 
-          if message.is_positive_response?
+          if message.is_positive?
             message.user.positive_response
-          elsif message.is_negative_response?
+          elsif message.is_negative?
             message.user.negative_response
           else
             dumb = YAML::load_file("#{Rails.root}/data/dumb.yml")
