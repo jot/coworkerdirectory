@@ -5,3 +5,9 @@ task :check_presence => :environment do
   Team.check_presences
   puts "done."
 end
+
+task :update_all_team_data => :environment do
+  puts "Queuing data update for all teams..."
+  Team.update_all_data
+  puts "done."
+end

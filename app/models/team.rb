@@ -96,6 +96,12 @@ class Team < ActiveRecord::Base
                     :active_uids=>active_uids, :away_uids=>away_uids, :active_ids=>active_ids, :away_ids=>away_ids)
   end
 
+  def self.update_all_data
+    Team.all.each do |t|
+      Resque.enqueue(UpdateTeamData, t.uid)
+    end
+  end
+
   def load_channels
     slack_client.channels_list["channels"].each do |channel_item|
       Channel.where(uid: channel_item["id"], team_id: self.id).first_or_create do |channel|
