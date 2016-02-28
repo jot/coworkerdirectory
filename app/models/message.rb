@@ -29,7 +29,7 @@ class Message < ActiveRecord::Base
   end
 
   def is_positive?
-    ['y', 'yes', 'yea', 'yeah', 'yep', 'OK', 'ok',  'affirmative', 'aye', 'roger', 'yup', 'yuppers', 'ja', 'surely', 'amen', 'totally', 'yessir'].include?(self.text)
+    ['continue', 'y', 'yes', 'yea', 'yeah', 'yep', 'OK', 'ok',  'affirmative', 'aye', 'roger', 'yup', 'yuppers', 'ja', 'surely', 'amen', 'totally', 'yessir'].include?(self.text)
   end
 
   def is_negative?
