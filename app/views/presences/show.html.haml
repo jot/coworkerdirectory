@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Team:
+  = @presence.team_id
+%p
+  %b Team uid:
+  = @presence.team_uid
+%p
+  %b Active ids:
+  = @presence.active_ids
+%p
+  %b Active uids:
+  = @presence.active_uids
+%p
+  %b Away ids:
+  = @presence.away_ids
+%p
+  %b Away uids:
+  = @presence.away_uids
+%p
+  %b Slack api data:
+  = @presence.slack_api_data
+%p
+  %b Checked at:
+  = @presence.checked_at
+
+= link_to 'Edit', edit_presence_path(@presence)
+\|
+= link_to 'Back', presences_path

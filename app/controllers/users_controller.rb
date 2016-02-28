@@ -1,11 +1,15 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, :except => [:index]
-  before_action :correct_user?, :except => [:index]
+  # before_action :authenticate_user!, :except => [:index]
+  # before_action :correct_user?, :except => [:index]
 
   def index
-    @team = Team.where(domain: request.subdomain).first
+    # @team = Team.where(domain: request.subdomain).first
+    if current_team.nil?
+      redirect_to root_url(:subdomain=>"")
+    else
+      @users = current_team.members_list
 
-    @users = @team.coworkers.order('photo_score DESC NULLS LAST').order('last_activity_at DESC NULLS LAST')
+    end
     # authorize User
   end
 
@@ -23,7 +27,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = current_team.users.find_by_name(params[:id])
     # authorize @user
   end
 

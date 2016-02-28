@@ -1,20 +1,94 @@
 !!!
-%html
+%html{:lang => "en"}
   %head
-    / Standard Meta
     %meta{:charset => "utf-8"}/
-    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
-    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0", :name => "viewport"}/
-    / Site Properties
-    %title Homepage - Semantic
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = csrf_meta_tags
-  %body
-    = render 'layouts/navigation'
-    / Page Contents
-    .pusher
-      .ui.container.main
-        = render 'layouts/messages'
-        = yield
-      = render 'layouts/footer'
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "keywords"}/
+    %meta{:content => "", :name => "author"}/
+    %title
+      Home ·
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "assets/css/toolkit.css", :rel => "stylesheet"}/
+    %link{:href => "assets/css/application.css", :rel => "stylesheet"}/
+    %link{:rel=>"icon", :href=>"favicon.ico"}
+    = stylesheet_link_tag 'ui', media: 'all', 'data-turbolinks-track' => true
+    :css
+      /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+      /* this chunk of css is not part of the toolkit :) */
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+      }
+  %body.with-top-navbar
+    #app-growl.growl
+    %nav.navbar.navbar-default.navbar-fixed-top.app-navbar
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"data-target" => "#navbar-collapse-main", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "/"}
+            = current_team.name
+            Community Directory
+        #navbar-collapse-main.navbar-collapse.collapse
+          %ul.nav.navbar-nav.hidden-xs
+            %li.active
+              = link_to "Members", users_path
+            %li
+              = link_to "Q&A", questions_path
+            %li
+              = link_to "Channels", channels_path
+            %li
+              = link_to "Presence", presences_path
+          %ul.nav.navbar-nav.navbar-right.m-r-0.hidden-xs
+            -if user_signed_in?
+              %li
+                = link_to 'Sign out', main_app.signout_path
+            -else
+              %li
+                = link_to 'Sign in', main_app.signin_url(:subdomain=>"", :team=>current_team.uid)
+          %ul.nav.navbar-nav.hidden-sm.hidden-md.hidden-lg
+            %li
+              = link_to "Members", users_path
+            %li
+              = link_to "Channels", channels_path
+            %li
+              = link_to "Q&A", messages_path
+            %li
+              = link_to "Emoji", messages_path
+            -if user_signed_in?
+              %li
+                = link_to 'Sign out', main_app.signout_path
+            -else
+              %li
+                = link_to 'Sign in', main_app.signin_url(:subdomain=>"",:team=>current_team.uid)
+          %ul.nav.navbar-nav.hidden
+            -if user_signed_in?
+              %li
+                = link_to 'Sign out', main_app.signout_path
+            -else
+              %li
+                = link_to 'Sign in', main_app.signin_url(:subdomain=>"",:team=>current_team.uid)
+    .container.p-t-md
+      = yield
+      .row
+        .col-md-12
+          .panel.panel-default.panel-link-list
+            .panel-body
+              Curated by
+              %a{:href => "http://cabinbot.com"}
+                %img{:alt => "cabinbot", :src => "/assets/cabinbot-logo-small-black.png", :width => "22px"}/
+              %a.pull-right{:href => "http://worksnug.com"} Comfortably productive.
+    = javascript_include_tag 'ui', 'data-turbolinks-track' => true
+    :javascript
+      // execute/clear BS loaders for docs
+      $(function(){
+        if (window.BS&&window.BS.loader&&window.BS.loader.length) {
+          while(BS.loader.length){(BS.loader.pop())()}
+        }
+      })

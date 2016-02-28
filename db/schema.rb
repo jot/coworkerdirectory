@@ -11,10 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220175625) do
+ActiveRecord::Schema.define(version: 20160228094930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "question_id"
+    t.integer  "question_message_id"
+    t.text     "question_text"
+    t.integer  "answer_message_id"
+    t.text     "answer_text"
+    t.string   "url"
+    t.jsonb    "properties"
+    t.datetime "asked_at"
+    t.datetime "answered_at"
+    t.integer  "asked_by"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "property_name"
+  end
+
+  create_table "channels", force: :cascade do |t|
+    t.string   "uid"
+    t.string   "name"
+    t.datetime "created"
+    t.string   "creator"
+    t.boolean  "is_archived"
+    t.boolean  "is_member"
+    t.integer  "num_members"
+    t.integer  "team_id"
+    t.jsonb    "slack_data"
+    t.jsonb    "properties"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string   "code"
+    t.string   "free_trial_length"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "messages", force: :cascade do |t|
     t.string   "channel_uid"
@@ -34,6 +73,53 @@ ActiveRecord::Schema.define(version: 20151220175625) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.string   "name"
+    t.string   "stripe_id"
+    t.float    "price"
+    t.string   "interval"
+    t.text     "features"
+    t.boolean  "highlight"
+    t.integer  "display_order"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "presences", force: :cascade do |t|
+    t.integer  "team_id"
+    t.string   "team_uid"
+    t.jsonb    "active_ids"
+    t.jsonb    "active_uids"
+    t.jsonb    "away_ids"
+    t.jsonb    "away_uids"
+    t.jsonb    "slack_api_data"
+    t.datetime "checked_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer  "team_id"
+    t.text     "text"
+    t.text     "response"
+    t.integer  "priority"
+    t.integer  "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string   "stripe_id"
+    t.integer  "plan_id"
+    t.string   "last_four"
+    t.integer  "coupon_id"
+    t.string   "card_type"
+    t.float    "current_price"
+    t.integer  "team_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.string   "uid"
@@ -44,6 +130,8 @@ ActiveRecord::Schema.define(version: 20151220175625) do
     t.json     "slack_data"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "user_id"
+    t.string   "user_uid"
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,13 +147,16 @@ ActiveRecord::Schema.define(version: 20151220175625) do
     t.datetime "slack_auth_data_updated_at"
     t.datetime "slack_api_data_updated_at"
     t.datetime "slack_reactions_data_updated_at"
-    t.string   "team_slack_id"
+    t.string   "team_uid"
     t.string   "team_name"
     t.string   "team_domain"
     t.datetime "last_activity_at"
     t.json     "channels"
     t.json     "emoji"
     t.integer  "photo_score"
+    t.jsonb    "admin_welcome_messages"
+    t.jsonb    "public_welcome_message"
+    t.jsonb    "private_welcome_messages"
   end
 
 end

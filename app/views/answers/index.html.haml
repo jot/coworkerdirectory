@@ -1,0 +1,41 @@
+%h1 Listing answers
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Question
+      %th Question message
+      %th Question text
+      %th Answer message
+      %th Answer text
+      %th Url
+      %th Properties
+      %th Asked at
+      %th Answered at
+      %th Asked by
+      %th
+      %th
+      %th
+
+  %tbody
+    - @answers.each do |answer|
+      %tr
+        %td= answer.user_id
+        %td= answer.question_id
+        %td= answer.question_message_id
+        %td= answer.question_text
+        %td= answer.answer_message_id
+        %td= answer.answer_text
+        %td= answer.url
+        %td= answer.properties
+        %td= answer.asked_at
+        %td= answer.answered_at
+        %td= answer.asked_by
+        %td= link_to 'Show', answer
+        %td= link_to 'Edit', edit_answer_path(answer)
+        %td= link_to 'Destroy', answer, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Answer', new_answer_path

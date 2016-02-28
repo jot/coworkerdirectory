@@ -1,0 +1,45 @@
+.profile-header.text-center{:style => "background-image: url(../assets/img/aescreenshot.png); background-color: ##{@user.color}"}
+  .container
+    .container-inner
+      = image_tag @user.image_url, :class=>"img-circle media-object"
+      %h3.profile-header-user
+        = @user.name
+      %p.profile-header-bio
+        = @user.description
+  %nav.profile-header-nav
+    %ul.nav.nav-tabs
+      %li.active
+        %a{:href => "#"}
+          = @user.answered_questions.count
+          questions answered
+      %li
+        %a{:href => "#"}
+          = @user.channels.count
+          channels joined
+      %li
+        %a{:href => "#"}
+          = @user.presences.count
+          days present
+.container.m-y-md
+  .col-md-8.col-md-offset-2
+    %h3
+      = @user.answered_questions.count
+      questions answered by
+      = "#{@user.name}:"
+    - @user.answered_questions.each do |answer|
+      %h5
+        =answer.question_text
+      %p.lead
+        =answer.answer_text
+  .col-md-8.col-md-offset-2
+    %h3
+      = @user.questions.count
+      unanswered questions:
+    - @user.questions.each do |question|
+      %h5
+        =question.text
+      %p
+        = simple_form_for(Answer.new(:user_id=>@user.id, :question_id=>question.id)) do |f|
+          = f.hidden_field :user_id
+          = f.hidden_field :question_id
+          = f.button :submit, "Ask"

@@ -1,0 +1,39 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @answer.user_id
+%p
+  %b Question:
+  = @answer.question_id
+%p
+  %b Question message:
+  = @answer.question_message_id
+%p
+  %b Question text:
+  = @answer.question_text
+%p
+  %b Answer message:
+  = @answer.answer_message_id
+%p
+  %b Answer text:
+  = @answer.answer_text
+%p
+  %b Url:
+  = @answer.url
+%p
+  %b Properties:
+  = @answer.properties
+%p
+  %b Asked at:
+  = @answer.asked_at
+%p
+  %b Answered at:
+  = @answer.answered_at
+%p
+  %b Asked by:
+  = @answer.asked_by
+
+= link_to 'Edit', edit_answer_path(@answer)
+\|
+= link_to 'Back', answers_path

@@ -30,11 +30,11 @@ module SlackCabinbot
       end
 
       def logger
-        Rails.logger
-        # @logger ||= begin
-        #   $stdout.sync = true
-        #   Logger.new(STDOUT)
-        # end
+        # Rails.logger
+        @logger ||= begin
+          $stdout.sync = true
+          Logger.new(STDOUT)
+        end
       end
 
       def start_from_database!

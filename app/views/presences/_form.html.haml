@@ -1,0 +1,15 @@
+= simple_form_for(@presence) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :team_id
+    = f.input :team_uid
+    = f.input :active_ids
+    = f.input :active_uids
+    = f.input :away_ids
+    = f.input :away_uids
+    = f.input :slack_api_data
+    = f.input :checked_at
+
+  .form-actions
+    = f.button :submit

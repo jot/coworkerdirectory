@@ -1,0 +1,18 @@
+.col-md-12
+  %h1 Questions
+
+  %table.table
+    %thead
+      %tr
+        %th Question
+        %th Author
+
+    %tbody
+      - @questions.each do |question|
+        %tr
+          %td= link_to question.text,question
+          %td= question.author_id
+
+  %br
+
+  = link_to 'New Question', new_question_path

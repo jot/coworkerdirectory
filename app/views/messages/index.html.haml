@@ -1,20 +1,19 @@
-.ui.comments
-  %h3.ui.dividing.header Messages
-  - @messages.each do |message|
-    .comment
-      %a.avatar
-        %img{:src => "/images/avatar/small/matt.jpg"}/
-      .content
-        %a.author
-          = message.team_uid
-          = message.channel_uid
-          = message.user_uid
-        .metadata
-          %span.date
-            =message.timestamp
-        .text
-          = message.text
-        .actions
-          %a.reply Reply
-          = link_to 'Show', message, :class=>"reply"
+.container.m-y-md
+  .col-md-12
+    %ul.list-group.media-list.media-list-stream
+      - @messages.each do |message|
+        %li.media.list-group-item.p-a
+          =link_to message.user, :class=>"media-left" do
+            = image_tag message.user.image_url, :class=>"media-object img-circle"
+          .media-body
+            .media-body-text
+              .media-heading
+                %small.pull-right.text-muted
+                  =message.channel_uid
+                %small.pull-right.text-muted
+                  =message.timestamp
 
+                %h5
+                  = message.user.name
+              %p
+                = Slack::Messages::Formatting.unescape(message.text)

@@ -1,7 +1,40 @@
-.ui.inverted.vertical.footer.segment
-  .ui.container
-    .ui.stackable.inverted.divided.equal.height.stackable.grid
-      .three.wide.column
-        %h4.ui.inverted.header &copy; WorkSnug 2015
-        .ui.inverted.link.list
-          %a.item{:href => "#"} Contact
+.container
+  .row
+    .col-sm-4.m-b-md
+      %ul.list-unstyled.list-spaced
+        %li.m-b
+          %h6.text-uppercase About
+        %li.text-muted
+          Cabinbot was built by Jonathan Markwell
+          = succeed ")," do
+            = succeed link_to "jot", "http://twitter.com/jot" do
+              ="(@"
+          founder of
+          =link_to "The Skiff coworking community", "http://theskiff.org"
+          in Brighton, England.
+          %br
+          Jonathan's goal is to help you become more comfortable and more productive, wherever you choose to work.
+        %li.text-muted
+          Learn more at:
+          =link_to "WorkSnug.com", "http://worksnug.com"
+          
+    .col-sm-2.col-sm-offset-1.m-b-md
+      %ul.list-unstyled.list-spaced
+        %li.m-b
+          %h6.text-uppercase Cabinbot
+        = render partial: 'layouts/navigation_links'
+    .col-sm-3.m-b-md
+      / %ul.list-unstyled.list-spaced
+      /   %li.m-b
+      /     %h6.text-uppercase WorkSnug
+      /   %li.text-muted Choose where you work
+      /   %li.text-muted Get better coworkers
+      /   %li.text-muted Work when you want
+    .col-sm-2.m-b-md
+      %ul.list-unstyled.list-spaced
+        %li.m-b
+          %h6.text-uppercase Legal
+        %li.text-muted
+          = link_to "Terms", terms_path
+        %li.text-muted
+          = link_to "Privacy", privacy_path

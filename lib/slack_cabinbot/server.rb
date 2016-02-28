@@ -1,7 +1,7 @@
 module SlackCabinbot
   class Server < SlackRubyBot::Server
-    # include SlackPongbot::Hooks::UserChange
-
+    include SlackCabinbot::Hooks::TeamJoin
+    
     attr_accessor :token
 
     def initialize(attrs = {})

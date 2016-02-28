@@ -1,15 +1,11 @@
-.ui.container
-  .ui.large.secondary.pointing.menu
-    %a.toc.item
-      %i.sidebar.icon
-    %a.item
-      = image_tag "/assets/cabinbot-logo-small.png"
-      Cabinbot
-    -if user_signed_in?
-      -if current_user.try(:admin?)
-        = link_to 'Users', users_path, :class=>"item"
-    .right.item
-      -if user_signed_in?
-        = link_to 'Sign out', signout_path, :class=>"ui.button"
-      -else
-        = link_to 'Sign in', signin_path, :class=>"ui.button"
+%li
+  %a{:href => "/plans"} Pricing
+
+-if user_signed_in?
+  %li
+    = link_to 'Sign out', main_app.signout_path, :class=>"item"
+-else
+  %li
+    = link_to 'Sign in', main_app.signin_path, :class=>"item"
+  %li
+    = link_to 'Sign up', main_app.signin_path, :class=>"item"

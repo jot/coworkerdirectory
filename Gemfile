@@ -20,13 +20,16 @@ gem 'high_voltage'
 gem 'omniauth'
 gem 'omniauth-slack', :github => "jot/omniauth-slack", :branch => "dynamic-scopes"
 gem 'pg'
+gem 'resque', "~> 1.22.0"
 gem 'puma'
 gem 'pundit'
 gem 'simple_form'
 gem 'slack-ruby-bot'
 gem 'eventmachine'
-gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+gem 'koudoku'
 group :development do
+  #gem 'koudoku', path: '/Users/jot/code/koudoku'
+  gem 'dotenv-rails'
   gem 'better_errors'
   gem 'foreman'
   gem 'guard-bundler'

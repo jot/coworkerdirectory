@@ -1,0 +1,17 @@
+= simple_form_for(@channel) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :uid
+    = f.input :name
+    = f.input :created
+    = f.input :creator
+    = f.input :is_archived
+    = f.input :is_member
+    = f.input :num_members
+    = f.input :team_id
+    = f.input :slack_data
+    = f.input :properties
+
+  .form-actions
+    = f.button :submit

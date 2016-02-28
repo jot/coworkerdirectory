@@ -1,0 +1,57 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "Community Management for Slack", :name => "description"}/
+    %meta{:content => "", :name => "keywords"}/
+    %meta{:content => "", :name => "author"}/
+    %title
+      Cabinbot Pricing
+    %link{:href => "https://fonts.googleapis.com/css?family=Lora:400,400italic|Work+Sans:300,400,500,600", :rel => "stylesheet", :type => "text/css"}/
+    %link{:rel=>"icon", :href=>"favicon.ico"}
+    = stylesheet_link_tag 'marketing', media: 'all', 'data-turbolinks-track' => true
+    :css
+      /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+      /* this chunk of css is not part of the toolkit :) */
+      /* …curses ios, etc… */
+      @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+        body {
+          width: 1px;
+          min-width: 100%;
+          *width: 100%;
+        }
+        #stage {
+          height: 1px;
+          overflow: auto;
+          min-height: 100vh;
+          -webkit-overflow-scrolling: touch;
+        }
+      }
+
+      .navbar-brand > img {
+        margin-top: -10px;
+        margin-right: 10px;
+      }
+
+      .navbar a {
+        color: #2d3238;
+      }
+    = csrf_meta_tags
+    = yield :koudoku
+  %body
+    #sidebar.stage-shelf.stage-shelf-right.hidden
+      %ul.nav.nav-bordered.nav-stacked
+        %li.nav-header Cabinbot
+        %li.active
+          %a{:href => "/"} Home
+        = render partial: 'layouts/navigation_links'
+    #stage.stage
+      / <div class="block block-inverse">
+      %nav.navbar.navbar-inverse.navbar-fixed-top.navbar-padded.app-navbar
+        = render partial: 'layouts/navigation'
+      = yield
+      .block.block-inverse.app-footer
+        = render partial: 'layouts/footer'
+    = javascript_include_tag 'marketing', 'data-turbolinks-track' => true

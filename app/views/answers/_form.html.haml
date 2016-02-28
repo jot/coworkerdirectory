@@ -1,0 +1,17 @@
+= simple_form_for(@answer) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :user_id
+    = f.input :question_id
+    = f.input :question_message_id
+    = f.input :question_text
+    = f.input :answer_message_id
+    = f.input :answer_text
+    = f.input :url
+    = f.input :asked_at
+    = f.input :answered_at
+    = f.input :asked_by
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Uid:
+  = @channel.uid
+%p
+  %b Name:
+  = @channel.name
+%p
+  %b Created:
+  = @channel.created
+%p
+  %b Creator:
+  = @channel.creator
+%p
+  %b Is archived:
+  = @channel.is_archived
+%p
+  %b Is member:
+  = @channel.is_member
+%p
+  %b Num members:
+  = @channel.num_members
+%p
+  %b Team:
+  = @channel.team_id
+%p
+  %b Slack data:
+  = @channel.slack_data
+%p
+  %b Properties:
+  = @channel.properties
+
+= link_to 'Edit', edit_channel_path(@channel)
+\|
+= link_to 'Back', channels_path

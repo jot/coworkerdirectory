@@ -1,41 +1,80 @@
-- Why did you join TEAM?
-- What question would you like everyone at TEAM to answer?
-- PC or Mac?
-- Android or iPhone?
-- What are you most comfortable with: code, pixels, words, numbers, negotiations?
-- What’s your snack preference?
-- What’s your drink preference?
-- What year did you discover The Skiff?
-- Where on the web can we find some of your creations?
-- What days of the week are you usually at The Skiff?
-- What are you working on this week?
-- Why did you join The Skiff?
-- What are you most passionate about? What are your most important life beliefs, goals or pursuits?
-- What excites you and brings you happiness? Is it an activity, a concept or object?
-- What do you care about? What brings you hope?
-- Why do you think this activity, concept or object excites you or brings you hope?
-- What are the THREE things for which you are most thankful?
-- Other than your parents who has been the most influential person in your life, and why?
-- The four things your friends say about you are:
-- What are three of your best life skills?
-- What are some of the most important qualities that you are looking for in a coworker?
-- Other than your appearance, what is the first thing that people notice about you?
-- What is the ONE thing that people DON’T notice about you right away that you WISH they WOULD?
-- How do you spend your leisure time typically?
-- What do you do when you’re not at work?
-- What kinds of activities do you enjoy during the week?
-- How about on the weekends?
-- Are you more athletic or physically active?
-- Do you enjoy outdoor sports? The beach?
-- Hiking in the mountains?
-- Indoor yoga?
-- Spiritual activities?
-- Do you stay close to home and engage in quiet activities like watching TV or clicking away on the Internet?
-- Are you a mall shopper?
-- Do you like to frequent restaurants or coffeehouses?
-- What do you do to relax?
-- What are five things that you “can’t live without?”
-- Describe the last book that you read and enjoyed. What was it about? What did you like most about it?
-- Describe one thing about yourself that only your best friends know.
-- Is there any additional information you would like your matches to know about you?
-
+- id: 1
+  text: Why did you decide to join {{TEAM}}?
+  response: That’s a great reason. I hope it exceeds your expectations...
+  priority: 10
+- id: 2
+  text: What are you working on this week?
+  response: That sounds too complicated for a humble bot like me to understand. I’m sure other members of {{TEAM}} will get it...
+  priority: 20
+- id: 3
+  text: Is there anything you need help with right now?
+  response: I’ll ask someone smarter than me to take a look at that.
+  priority: 30
+- id: 4
+  text: What do you prefer to drink while you are working?
+  response: Mmmm. I wish I could try some of that...
+  priority: 40
+- id: 5
+  text: If you fire up Spotify what are you most likely to be listening to?
+  response: Nice! Feel free to put that on now...
+  priority: 50
+- id: 6
+  text: If I were a potential client or collaborator of yours *what skills or experience* might I be looking for?
+  response: I’ll let you know if I come across someone looking for that...
+  priority: 60
+- id: 7
+  text: Which website do you visit when you need a break from your work?
+  response: Hopefully I can keep your attention for a few more minutes...
+  priority: 70
+- id: 8
+  text: Where do you think you’ll buy your lunch next time you want to treat yourself?
+  response: Sounds good. I wish I could join you but I’m stuck in the Internets...
+  priority: 80
+- id: 9
+  text: If I were a potential client or collaborator of yours *why* should I contact you before I contact anyone else?
+  response: Good stuff. I’ll make sure I tell people that...
+  priority: 90
+- id: 10
+  text: What would you most like to be doing on an afternoon when you are not working?
+  response: "Awesome. That’s another thing I’m not really cut out to do but feel free to share pictures in #random next time you do it."
+  priority: 100
+- id: 11
+  text: Where are you planning to travel to next?
+  response: That’ll be an adventure!...
+  priority: 110
+- id: 12
+  text: What do you like to snack on to keep your energy levels up?
+  response: Only 9 questions left! Grab some of that now if you need to...
+  priority: 120
+- id: 13
+  text: Name (or provide a URL) of a business you’ve worked with recently.
+  response: Impressive! I’ll be sure to share that with anyone interested in working with you...
+  priority: 130
+- id: 14
+  text: When work’s over what do you drink to relax?
+  response: Not long now until I’ll leave you to enjoy one of those...
+  priority: 140
+- id: 15
+  text: Any upcoming events/shows/gigs you’re looking forward to attending?
+  response: Cool. Hope it’s as good as you hope...
+  priority: 150
+- id: 16
+  text: Where do you recommend for a good dinner out?
+  response: That sounds yummy...
+  priority: 160
+- id: 17
+  text: What movie would you recommend other members of {{TEAM}} go and see?
+  response: I might check that out myself. Yes bots can watch movies...
+  priority: 170
+- id: 18
+  text: What book would you recommend to other members of {{TEAM}}?
+  response: I just read that. I’m not smart enough to understand it but now I know it’s worth recommending :)
+  priority: 180
+- id: 19
+  text: What question would you love to be asked by a member of {{TEAM}}?
+  response: Intriguing! I’ll make sure someone asks you that...
+  priority: 190
+- id: 20
+  text: What question would you like every member of {{TEAM}} to answer?
+  response: Good question! I’ll add that to my list...
+  priority: 200

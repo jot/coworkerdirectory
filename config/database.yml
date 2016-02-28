@@ -51,11 +51,5 @@ test:
   template: template0
 
 production:
-  adapter:  postgresql
-  host:     localhost
-  encoding: unicode
-  database: coworkerdirectory_production
-  pool:     5
-  username: jot
-  password: 
-  template: template0
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
