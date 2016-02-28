@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
     self.private_welcome_messages << {:text=>"I hope things are going well for you as a member of #{team.name}."}
     self.private_welcome_messages << {:text=>"@#{team.admin_name} asked me to say hello and run a few things past you..."}
     self.private_welcome_messages << {:question=>"First up: Where on the web should members of #{team.name} go to learn a little more about you? (Website/Twitter URL/LinkedIn page)", :property_name=>"url"}
-    self.private_welcome_messages << {:text=>"I have 20 more questions for you. I’ll use your answers to help you meet some other members of The Skiff. We have a bunch of people here who I think you’ll get on swimmingly with."}
+    self.private_welcome_messages << {:text=>"I have 20 more questions for you. I’ll use your answers to help you meet some other members of #{team.name}. We have a bunch of people here who I think you’ll get on swimmingly with."}
     self.private_welcome_messages << {:confirm=>"Are you happy to answer them now?"}
     self.save
   end
