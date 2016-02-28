@@ -6457,8 +6457,8 @@ fieldset[disabled] .btn-danger-outline.active {
 }
 @font-face {
   font-family: "toolkit-entypo";
-  src: url('../fonts/toolkit-entypo.eot');
-  src: url('../fonts/toolkit-entypo.eot?#iefix') format('eot'), url('../fonts/toolkit-entypo.woff2') format('woff2'), url('../fonts/toolkit-entypo.woff') format('woff'), url('../fonts/toolkit-entypo.ttf') format('truetype');
+  src: asset-url('toolkit-entypo.eot');
+  src: asset-url('toolkit-entypo.eot?#iefix') format('eot'), asset-url('toolkit-entypo.woff2') format('woff2'), asset-url('toolkit-entypo.woff') format('woff'), asset-url('toolkit-entypo.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

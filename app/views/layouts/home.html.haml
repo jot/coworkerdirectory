@@ -53,10 +53,10 @@
           %a{:href => "/"} Home
         = render partial: 'layouts/navigation_links'
     #stage.stage
-      .block.block-inverse.block-fill-height.app-header{:style => "background-image: url('/assets/community.jpg');"}
+      .block.block-inverse.block-fill-height.app-header{:style => "background-image: url(#{asset_path('community.jpg')});"}
         %nav.navbar.navbar-transparent.navbar-fixed-top.navbar-padded.app-navbar
           = render partial: 'layouts/navigation'
-        %img.app-graph{:src => "/assets/faded-member-list.png"}/
+        %img.app-graph{:src => asset_path('faded-member-list.png')}/
         .block-xs-middle.p-b-lg
           .container
             .row
