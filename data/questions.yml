@@ -19,7 +19,7 @@
   response: Nice! Feel free to put that on now...
   priority: 50
 - id: 6
-  text: If I were a potential client or collaborator of yours *what skills or experience* might I be looking for?
+  text: If I were a potential client or collaborator of yours what *skills or experience* might you be able to offer me?
   response: I’ll let you know if I come across someone looking for that...
   priority: 60
 - id: 7
