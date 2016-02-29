@@ -1,0 +1,46 @@
+-
+  text: Hello! Welcome to UX Camp Brighton 2016. I'm Cabinbot, nice to meet you.
+-
+  text: I hope things are going well for you as a member of uxcb2016.
+-
+  text: @patrick_sansom and the rest of the volunteers asked me to say hello and run a few things past you...
+-
+  question: "First up: Where is the best place on the web that members of uxcb2016 could go to learn a little more about you? (Please paste in the full url of any website, maybe your blog, Twitter or your LinkedIn page)."
+  property_name: url
+-
+  text: The UXCB Team have just X more quick questions to help you feel more at home. I’ll use your answers to help you meet some other members of uxcb2016.
+-
+  text: We have a load of people here who I think you’d love to meet.
+-
+  confirm: Are you happy to answer them now?
+-
+  question: "Second: Why did you decide to come to uxcb16?"
+  property_name: why
+-
+  text: That’s the best reason! I'm sure it will exceed your expectations...
+-
+  question: So, what are you working on this week?
+  property_name: this_week
+-
+  text: That sounds brilliant. I'm sure we'll be able to connect you with others who are doing similar things.
+-
+  confirm: We'd love to know more about your session at uxcb16. Have you worked out your Session Title and Description yet?
+-
+  text: Great news! We're all very excited to meet you on March 19th! Not long to go now!
+-
+  question: What's the title of your session?
+  property_name: session_title
+-
+  text: That sounds amazing. I know of a few attendees who are interested in that topic!
+-
+  question: What type of session are you holding? Is it a Talk, Discussion or Workshop? Or something else?
+  property_name: session_type
+-
+  text: I can't wait to hear more about it!
+-
+  question: Can you give me a description - a brief summary - of what your session will involve?
+  property_name: session_summary
+-
+  text: Thank you so much! See on you Saturday 19th March!
+-
+  text: Look out for updates on www.uxcampbrighton.org/sessions/ (It's not updated automatically, I have to pass the details to my human friends for that).

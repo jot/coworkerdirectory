@@ -14,3 +14,14 @@
  *= require application-ui
  *= require_self
  */
+
+.profile-header .media-object {
+    width: 100px;
+}
+
+ @media (min-width: 768px){
+  .profile-header .media-object {
+    width: 300px;
+  }
+}
+

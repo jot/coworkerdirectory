@@ -28,6 +28,8 @@ gem 'simple_form'
 gem 'slack-ruby-bot'
 gem 'eventmachine'
 gem 'koudoku'
+gem 'gravatar-ultimate'
+gem 'twitter-text'
 group :development do
   #gem 'koudoku', path: '/Users/jot/code/koudoku'
   gem 'dotenv-rails'

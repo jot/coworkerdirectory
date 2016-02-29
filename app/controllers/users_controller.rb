@@ -8,23 +8,22 @@ class UsersController < ApplicationController
       redirect_to root_url(:subdomain=>"")
     else
       @users = current_team.members_list
-
     end
     # authorize User
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  # def edit
+  #   @user = User.find(params[:id])
+  # end
 
-  def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(secure_params)
-      redirect_to users_path
-    else
-      render :edit
-    end
-  end
+  # def update
+  #   @user = User.find(params[:id])
+  #   if @user.update_attributes(secure_params)
+  #     redirect_to users_path
+  #   else
+  #     render :edit
+  #   end
+  # end
 
   def show
     @user = current_team.users.find_by_name(params[:id])

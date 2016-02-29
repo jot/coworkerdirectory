@@ -4,6 +4,7 @@
     .panel-body.text-center
       =link_to user do
         = image_tag user.image_url, :class=>"panel-profile-img"
+
       %h5.panel-title
         =link_to user, :class=>"text-inherit" do
           = user.name
@@ -18,12 +19,12 @@
           %a.text-inherit
             = user.channels.count
             channels joined
-        %li.panel-menu-item
-          %a.text-inherit
-            =user.presences.count
-            days present
+        / %li.panel-menu-item
+        /   %a.text-inherit
+        /     #=user.presences.count
+        /     days present
             
-      %a.btn.btn-success{:href => "#"}
-        Contact
-        = user.name
+      / %a.btn.btn-success{:href => "#"}
+      /   Contact
+      /   = user.name
       = link_to "Learn more", user, :class=>"btn btn-primary"

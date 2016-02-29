@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
 
   def new
-    redirect_to '/auth/slack'
+    if params[:team]
+      redirect_to "/auth/slack?team=#{params[:team]}"
+    else
+      redirect_to '/auth/slack'      
+    end
   end
 
   def create
@@ -13,8 +17,11 @@ class SessionsController < ApplicationController
     Resque.enqueue(SetUpNewTeam, user.team_uid)
     reset_session
     session[:user_id] = user.id
-    redirect_to working_url
-    # redirect_to root_url(subdomain: user.team.domain), :notice => 'Signed in!'
+    if user.team.channels.empty?
+      redirect_to working_url
+    else
+      redirect_to root_url(subdomain: user.team.domain), :notice => 'Signed in!'
+    end
   end
 
   def destroy

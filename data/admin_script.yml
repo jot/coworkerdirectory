@@ -1,0 +1,21 @@
+-
+  text: "Thank you for trying Cabinbot. You’re going to love the things I can do for your community."
+-
+  text: "I’m not going to contact any other members until you give me the go ahead. And when I do start contacting them I’ll start with only the members you tell me to contact."
+-
+  text: "Before we begin, here’s a quick question:"
+-
+  question: "Why did you decide to add me to your Slack team today?"
+  property_name: "why"
+-
+  text: "I'll try my very best to meet your expectations"}
+-
+  text: "If you have a look at http://#{team.domain}.cabinbot.com You’ll see a directory of all your members. Right now it can only be seen by people who are members of your Slack team... And it’s looking a little bare..."
+-
+  confirm: "Want to do something about that?"}
+- 
+  text: "Great! Before I contact anyone I need you to lead by example..."
+-
+  text: "What happens next is what I hope to do for all your members. Please stick with it. It’ll be worth it - I promise."
+-
+  confirm: "Ready?"

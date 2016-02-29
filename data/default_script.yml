@@ -1,0 +1,13 @@
+-
+  text: "Ahoy there. I'm Cabinbot."
+-
+  text: "I hope things are going well for you as a member of {{TEAM}}."
+-
+  text: "@{{ADMIN}} asked me to say hello and run a few things past you..."
+-
+  question: "First up: Where on the web should members of {{TEAM}} go to learn a little more about you? (Website/Twitter URL/LinkedIn page)"
+  property_name: "url"
+-
+  text: "I have 20 more questions for you. I’ll use your answers to help you meet some other members of #{team.name}. We have a bunch of people here who I think you’ll get on swimmingly with."
+-
+  confirm: "Are you happy to answer them now?"

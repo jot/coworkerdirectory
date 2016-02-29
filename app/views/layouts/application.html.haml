@@ -10,9 +10,7 @@
     %title
       Home ·
     %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600", :rel => "stylesheet", :type => "text/css"}/
-    %link{:href => "assets/css/toolkit.css", :rel => "stylesheet"}/
-    %link{:href => "assets/css/application.css", :rel => "stylesheet"}/
-    %link{:rel=>"icon", :href=>"favicon.ico"}
+    %link{:rel=>"icon", :href=>"/favicon.ico"}
     = stylesheet_link_tag 'ui', media: 'all', 'data-turbolinks-track' => true
     :css
       /* note: this is a hack for ios iframe for bootstrap themes shopify page */
@@ -23,6 +21,17 @@
         *width: 100%;
       }
   %body.with-top-navbar
+    :javascript
+      (function(w, d){
+       var id='embedly-platform', n = 'script';
+       if (!d.getElementById(id)){
+         w.embedly = w.embedly || function() {(w.embedly.q = w.embedly.q || []).push(arguments);};
+         var e = d.createElement(n); e.id = id; e.async=1;
+         e.src = ('https:' === document.location.protocol ? 'https' : 'http') + '://cdn.embedly.com/widgets/platform.js';
+         var s = d.getElementsByTagName(n)[0];
+         s.parentNode.insertBefore(e, s);
+       }
+      })(window, document);
     #app-growl.growl
     %nav.navbar.navbar-default.navbar-fixed-top.app-navbar
       .container
@@ -39,12 +48,12 @@
           %ul.nav.navbar-nav.hidden-xs
             %li.active
               = link_to "Members", users_path
-            %li
-              = link_to "Q&A", questions_path
+            / %li
+            /   = link_to "Q&A", questions_path
             %li
               = link_to "Channels", channels_path
-            %li
-              = link_to "Presence", presences_path
+            / %li
+            /   = link_to "Presence", presences_path
           %ul.nav.navbar-nav.navbar-right.m-r-0.hidden-xs
             -if user_signed_in?
               %li
@@ -57,10 +66,10 @@
               = link_to "Members", users_path
             %li
               = link_to "Channels", channels_path
-            %li
-              = link_to "Q&A", messages_path
-            %li
-              = link_to "Emoji", messages_path
+            / %li
+            /   = link_to "Q&A", messages_path
+            / %li
+            /   = link_to "Emoji", messages_path
             -if user_signed_in?
               %li
                 = link_to 'Sign out', main_app.signout_path
@@ -92,3 +101,4 @@
           while(BS.loader.length){(BS.loader.pop())()}
         }
       })
+    // embedly

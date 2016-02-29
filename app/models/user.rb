@@ -9,8 +9,25 @@ class User < ActiveRecord::Base
   end
 
   def answered_questions
-    answers.where.not(:answer_text=>nil)
+    answers.where.not(:answer_text=>nil).order(:created_at)
   end
+
+  def answered_questions_no_url
+    answered_questions.where(:url=>nil)
+  end
+
+  def answered_questions_with_url
+    answered_questions.where.not(:url=>nil)
+  end
+
+  def email
+    slack_api_data["profile"]["email"]
+  end
+
+  def gravatar
+    Gravatar.new(email).image_url
+  end
+
 
   def questions
     team.questions.where.not(:id=>answered_questions.pluck(:question_id))
