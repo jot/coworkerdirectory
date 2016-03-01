@@ -9,6 +9,7 @@ class SetUpNewTeam
     t.load_channels
     t.load_questions
     t.admin.create_welcome_messages
+    t.notify_inuda
     puts "Set up #{t.name}."
   end
 end

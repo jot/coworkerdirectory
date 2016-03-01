@@ -21,7 +21,9 @@ class User < ActiveRecord::Base
   end
 
   def email
-    slack_api_data["profile"]["email"]
+    e = slack_api_data["profile"]["email"] unless slack_api_data.nil? || slack_api_data["profile"].nil?
+    e ||= slack_auth_data["info"]["email"] unless slack_auth_data.nil? || slack_auth_data["info"].nil?
+    e
   end
 
   def gravatar

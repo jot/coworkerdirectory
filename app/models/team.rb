@@ -11,6 +11,15 @@ class Team < ActiveRecord::Base
   belongs_to :user
 
 
+  def notify_inuda
+    t = Team.find_by_domain("inuda")
+    t.notify_admin("#{self.domain}.cabinbot.com created by #{self.admin_name} (#{self.admin_email})")
+  end
+
+  def notify_admin(message)
+    send_im(self.user_uid, message)
+  end
+
   def admin
     user
   end
@@ -18,6 +27,11 @@ class Team < ActiveRecord::Base
   def admin_name
     user.name
   end
+
+  def admin_email
+    user.email
+  end
+
 
   def members_list
     users.find(presences.last.active_ids)
