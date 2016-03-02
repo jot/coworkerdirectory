@@ -19,7 +19,7 @@ class Message < ActiveRecord::Base
       message.user_uid = data_message["user"]
       message.text = data_message["text"]
     end
-    unless m.channel_uid[0] == "D"
+    if m.channel_uid[0] == "D"
       m.answer_question
     end
     return m
