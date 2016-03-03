@@ -72,10 +72,10 @@ class User < ActiveRecord::Base
       end
       last = index
     end
+    return last
   end
 
   def next_welcome_message
-    puts "NAME: #{self.name}"
     self.private_welcome_messages.each_index do |index|
       if self.private_welcome_messages[index]["completed_at"].nil?
         return index
@@ -129,7 +129,9 @@ class User < ActiveRecord::Base
 
   def positive_response
     index = next_welcome_message
-    if self.private_welcome_messages[index]["confirm"].present?
+    if index.nil?
+      continue_welcome
+    elsif self.private_welcome_messages[index]["confirm"].present?
       self.private_welcome_messages[index]["completed_at"] = Time.now
       self.save
       continue_welcome
