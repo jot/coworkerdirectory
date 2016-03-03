@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
 
   belongs_to :team
+  has_many :answers
 
   def self.load_questions(team)
     questions = YAML::load_file("#{Rails.root}/data/questions.yml")
