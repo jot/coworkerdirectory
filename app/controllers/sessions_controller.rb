@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 
   def new
     if params[:team]
-      redirect_to "/auth/slack?team=#{params[:team]}"
+      redirect_to "/auth/slack?team=#{params[:team]}&scope=#{params[:scope]}"
     else
       redirect_to '/auth/slack'      
     end
