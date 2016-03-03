@@ -40,26 +40,28 @@ class User < ActiveRecord::Base
   end
 
   def create_welcome_messages
-    self.private_welcome_messages = []
-    if self.is_cabinbot_admin?
-      self.private_welcome_messages << {:text=>"Thank you for trying Cabinbot. You’re going to love the things I can do for your community.", :message_id=>nil}
-      self.private_welcome_messages << {:text=>"I’m not going to contact any other members until you give me the go ahead. And when I do start contacting them I’ll start with only the members you tell me to contact.", :message_id=>nil}
-      self.private_welcome_messages << {:text=>"Before we begin, here’s a quick question:", :message_id=>nil}
-      self.private_welcome_messages << {:question=>"Why did you decide to add me to your Slack team today?", :property_name=>"why", :answer_id=>nil, :message_id=>nil}
-      self.private_welcome_messages << {:text=>"I'll try my very best to meet your expectations"}
-      self.private_welcome_messages << {:text=>"If you have a look at http://#{team.domain}.cabinbot.com You’ll see a directory of all your members. Right now it can only be seen by people who are members of your Slack team... And it’s looking a little bare...", :message_id=>nil}
-      self.private_welcome_messages << {:confirm=>"Want to do something about that?", :message_id=>nil, :confirmed_at=>nil}
-      self.private_welcome_messages << {:text=>"Great! Before I contact anyone I need you to lead by example...", :message_id=>nil}
-      self.private_welcome_messages << {:text=>"What happens next is what I hope to do for all your members. Please stick with it. It’ll be worth it - I promise.", :message_id=>nil}
-      self.private_welcome_messages << {:confirm=>"Ready?", :message_id=>nil, :confirmed_at=>nil}
+    if self.private_welcome_messages.blank?
+      self.private_welcome_messages = []
+      if self.is_cabinbot_admin?
+        self.private_welcome_messages << {:text=>"Thank you for trying Cabinbot. You’re going to love the things I can do for your community.", :message_id=>nil}
+        self.private_welcome_messages << {:text=>"I’m not going to contact any other members until you give me the go ahead. And when I do start contacting them I’ll start with only the members you tell me to contact.", :message_id=>nil}
+        self.private_welcome_messages << {:text=>"Before we begin, here’s a quick question:", :message_id=>nil}
+        self.private_welcome_messages << {:question=>"Why did you decide to add me to your Slack team today?", :property_name=>"why", :answer_id=>nil, :message_id=>nil}
+        self.private_welcome_messages << {:text=>"I'll try my very best to meet your expectations"}
+        self.private_welcome_messages << {:text=>"If you have a look at http://#{team.domain}.cabinbot.com You’ll see a directory of all your members. Right now it can only be seen by people who are members of your Slack team... And it’s looking a little bare...", :message_id=>nil}
+        self.private_welcome_messages << {:confirm=>"Want to do something about that?", :message_id=>nil, :confirmed_at=>nil}
+        self.private_welcome_messages << {:text=>"Great! Before I contact anyone I need you to lead by example...", :message_id=>nil}
+        self.private_welcome_messages << {:text=>"What happens next is what I hope to do for all your members. Please stick with it. It’ll be worth it - I promise.", :message_id=>nil}
+        self.private_welcome_messages << {:confirm=>"Ready?", :message_id=>nil, :confirmed_at=>nil}
+      end
+      self.private_welcome_messages << {:text=>"Ahoy there. I'm Cabinbot."}
+      self.private_welcome_messages << {:text=>"I hope things are going well for you as a member of #{team.name}."}
+      self.private_welcome_messages << {:text=>"@#{team.admin_name} asked me to say hello and run a few things past you..."}
+      self.private_welcome_messages << {:question=>"First up: Where on the web should members of #{team.name} go to learn a little more about you? (Website/Twitter URL/LinkedIn page)", :property_name=>"url"}
+      self.private_welcome_messages << {:text=>"I have 20 more questions for you. I’ll use your answers to help you meet some other members of #{team.name}. We have a bunch of people here who I think you’ll get on swimmingly with."}
+      self.private_welcome_messages << {:confirm=>"Are you happy to answer them now?"}
+      self.save
     end
-    self.private_welcome_messages << {:text=>"Ahoy there. I'm Cabinbot."}
-    self.private_welcome_messages << {:text=>"I hope things are going well for you as a member of #{team.name}."}
-    self.private_welcome_messages << {:text=>"@#{team.admin_name} asked me to say hello and run a few things past you..."}
-    self.private_welcome_messages << {:question=>"First up: Where on the web should members of #{team.name} go to learn a little more about you? (Website/Twitter URL/LinkedIn page)", :property_name=>"url"}
-    self.private_welcome_messages << {:text=>"I have 20 more questions for you. I’ll use your answers to help you meet some other members of #{team.name}. We have a bunch of people here who I think you’ll get on swimmingly with."}
-    self.private_welcome_messages << {:confirm=>"Are you happy to answer them now?"}
-    self.save
   end
 
   def last_welcome_message
@@ -301,16 +303,25 @@ class User < ActiveRecord::Base
   def update_team
     team_data = slack_client_user.team_info
 
+    new_team = true
+
     Team.where(uid: team_uid).first_or_create do |team|
+      if team.user_id.present?
+        new_team = false
+      end
       team.user_id ||= self.id
       team.user_uid ||= self.uid
       team.name = team_data["team"]["name"]
       team.domain = team_data["team"]["domain"]
       team.email_domain = team_data["team"]["email_domain"]
-      team.bot_user_id = slack_auth_data["extra"]["bot_info"]["bot_user_id"] unless slack_auth_data["extra"]["bot_info"].nil?
-      team.bot_access_token = slack_auth_data["extra"]["bot_info"]["bot_access_token"] unless slack_auth_data["extra"]["bot_info"].nil?
+      team.bot_user_id ||= slack_auth_data["extra"]["bot_info"]["bot_user_id"] unless slack_auth_data["extra"]["bot_info"].nil?
+      team.bot_access_token ||= slack_auth_data["extra"]["bot_info"]["bot_access_token"] unless slack_auth_data["extra"]["bot_info"].nil?
       team.slack_data = team_data
     end
+    if new_team
+      Resque.enqueue(SetUpNewTeam, team_uid)
+    end
+
   end
 
   def is_bot?
