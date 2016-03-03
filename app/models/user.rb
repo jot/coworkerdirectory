@@ -303,22 +303,22 @@ class User < ActiveRecord::Base
   def update_team
     team_data = slack_client_user.team_info
 
-    new_team = true
+    team_is_new = false
 
-    Team.where(uid: team_uid).first_or_create do |team|
-      if team.user_id.present?
-        new_team = false
-      end
-      team.user_id ||= self.id
-      team.user_uid ||= self.uid
-      team.name = team_data["team"]["name"]
-      team.domain = team_data["team"]["domain"]
-      team.email_domain = team_data["team"]["email_domain"]
-      team.bot_user_id ||= slack_auth_data["extra"]["bot_info"]["bot_user_id"] unless slack_auth_data["extra"]["bot_info"].nil?
-      team.bot_access_token ||= slack_auth_data["extra"]["bot_info"]["bot_access_token"] unless slack_auth_data["extra"]["bot_info"].nil?
-      team.slack_data = team_data
+    t = Team.where(uid: team_uid).first_or_create do |new_team|
+      team_is_new = true
+      new_team.user_id = self.id
+      new_team.user_uid = self.uid
+      new_team.bot_user_id = slack_auth_data["extra"]["bot_info"]["bot_user_id"] unless slack_auth_data["extra"]["bot_info"].nil?
+      new_team.bot_access_token = slack_auth_data["extra"]["bot_info"]["bot_access_token"] unless slack_auth_data["extra"]["bot_info"].nil?
     end
-    if new_team
+
+    t.name = team_data["team"]["name"]
+    t.domain = team_data["team"]["domain"]
+    t.email_domain = team_data["team"]["email_domain"]
+    t.slack_data = team_data
+
+    if team_is_new
       Resque.enqueue(SetUpNewTeam, team_uid)
     end
 
