@@ -14,6 +14,10 @@ class Team < ActiveRecord::Base
   belongs_to :user
 
 
+  def self.active_bots
+    all.where(:is_active=>true)
+  end
+
   def notify_inuda
     t = Team.find_by_domain("inuda")
     t.notify_admin("#{self.domain}.cabinbot.com created by #{self.admin_name} (#{self.admin_email})")

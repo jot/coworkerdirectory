@@ -38,13 +38,13 @@ module SlackCabinbot
       end
 
       def start_from_database!
-        Team.all.find_each do |team|
+        Team.active_bots.find_each do |team|
           start! team.bot_access_token
         end
 
         EM.add_periodic_timer(30) do
           begin
-            Team.all.find_each do |team|
+            Team.active_bots.find_each do |team|
               start! team.bot_access_token unless @services.key?(team.bot_access_token)
             end
           rescue => e
