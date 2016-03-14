@@ -1,6 +1,9 @@
 class Team < ActiveRecord::Base
 # Added by Koudoku.
   has_one :subscription
+
+# Added by Koudoku.
+  has_one :subscription
   has_many :channels
   has_many :questions
   has_many :presences

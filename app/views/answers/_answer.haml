@@ -10,7 +10,7 @@
           = link_to answer.url, answer.url, :class=>"embedly-card"
         = raw auto_link(answer.unescaped_answer)
       -else
-        = link_to "Sign in to #{current_team.name} to view", main_app.signin_url(:subdomain=>"", :team=>current_team.uid)
+        = link_to "Sign in to #{current_team.name} to view", main_app.signin_url(:subdomain=>"", :team=>current_team.uid, :scope=>"identify")
 
 
     / %ul.panel-menu

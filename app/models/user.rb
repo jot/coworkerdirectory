@@ -319,7 +319,7 @@ class User < ActiveRecord::Base
     t.domain = team_data["team"]["domain"]
     t.email_domain = team_data["team"]["email_domain"]
     t.slack_data = team_data
-
+    t.save
     if team_is_new
       Resque.enqueue(SetUpNewTeam, team_uid)
     end

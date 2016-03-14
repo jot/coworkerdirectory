@@ -8,7 +8,7 @@ Koudoku.setup do |config|
   # config.free_trial_length = 30
 
   # Specify layout you want to use for the subscription pages, default is application
-  config.layout = 'application'
+  config.layout = 'marketing'
   
   # you can subscribe to additional webhooks here
   # we use stripe_event under the hood and you can subscribe using the 

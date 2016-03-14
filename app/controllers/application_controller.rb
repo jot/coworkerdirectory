@@ -35,7 +35,9 @@ class ApplicationController < ActionController::Base
     end
 
     def current_team
-      Team.where(domain: request.subdomain).first
+      t = Team.where(domain: request.subdomain).first
+      t ||= current_user.team
+      return t
       # current_user.team unless current_user.nil?
     end
 
