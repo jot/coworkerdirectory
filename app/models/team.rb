@@ -102,7 +102,7 @@ class Team < ActiveRecord::Base
   end
 
   def self.check_presences
-    Team.all.each do |t|
+    Team.active_bots.each do |t|
       t.check_presence
     end
   end
@@ -118,7 +118,7 @@ class Team < ActiveRecord::Base
   end
 
   def self.update_all_data
-    Team.all.each do |t|
+    Team.active_bots.each do |t|
       Resque.enqueue(UpdateTeamData, t.uid)
     end
   end
