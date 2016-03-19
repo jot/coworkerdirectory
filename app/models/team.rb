@@ -13,9 +13,18 @@ class Team < ActiveRecord::Base
 
   belongs_to :user
 
+  scope :active, -> { where(is_active: true) }
 
-  def self.active_bots
-    all.where(:is_active=>true)
+  def deactivate!
+    update_attributes!(is_active: false)
+  end
+
+  def activate!
+    update_attributes!(is_active: true)
+  end
+
+  def token
+    bot_access_token
   end
 
   def notify_inuda
@@ -75,7 +84,7 @@ class Team < ActiveRecord::Base
   end
 
   def slack_client
-    Slack::Web::Client.new(:token=>bot_access_token)
+    Slack::Web::Client.new(:token=>token)
   end
 
   def slack_client_user
@@ -102,7 +111,7 @@ class Team < ActiveRecord::Base
   end
 
   def self.check_presences
-    Team.active_bots.each do |t|
+    Team.active.each do |t|
       t.check_presence
     end
   end
@@ -118,7 +127,7 @@ class Team < ActiveRecord::Base
   end
 
   def self.update_all_data
-    Team.active_bots.each do |t|
+    Team.active.each do |t|
       Resque.enqueue(UpdateTeamData, t.uid)
     end
   end

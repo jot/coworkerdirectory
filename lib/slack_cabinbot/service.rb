@@ -4,25 +4,31 @@ module SlackCabinbot
     @services = {}
 
     class << self
-      def start!(token)
-        fail 'Token already known.' if @services.key?(token)
+      def start!(team)
+        fail 'Token already known.' if @services.key?(team.token)
         EM.next_tick do
-          server = SlackCabinbot::Server.new(token: token)
+          logger.info "Starting team #{team.name}."
+          server = SlackCabinbot::Server.new(team: team)
           LOCK.synchronize do
-            @services[token] = server
+            @services[team.token] = server
           end
-          restart!(server)
+          EM.defer do
+            restart!(team, server)
+            # EM.next_tick do
+            #   nudge!(team)
+            # end
+          end
         end
       rescue StandardError => e
         logger.error e
       end
 
-      def stop!(token)
+      def stop!(team)
         LOCK.synchronize do
-          fail 'Token unknown.' unless @services.key?(token)
+          fail 'Token unknown.' unless @services.key?(team.token)
           EM.next_tick do
-            @services[token].stop!
-            @services.delete(token)
+            @services[team.token].stop!
+            @services.delete(team.token)
           end
         end
       rescue StandardError => e
@@ -38,30 +44,36 @@ module SlackCabinbot
       end
 
       def start_from_database!
-        Team.active_bots.find_each do |team|
-          start! team.bot_access_token
+        until EM.reactor_running?; end
+        Team.active.find_each do |team|
+          start! team
         end
 
         EM.add_periodic_timer(30) do
           begin
-            Team.active_bots.find_each do |team|
-              start! team.bot_access_token unless @services.key?(team.bot_access_token)
+            Team.active.find_each do |team|
+              start! team unless @services.key?(team.token)
             end
-          rescue => e
-            log_error(e)
+          rescue StandardError => e
+            logger.error e
           end
         end
 
       end
 
-      def restart!(server, wait = 1)
-        server.auth!
+      def restart!(team, server, wait = 1)
         server.start_async
       rescue StandardError => e
-        logger.error "#{server.token[0..10]}***: #{e.message}, restarting in #{wait} second(s)."
-        sleep(wait)
-        EM.next_tick do
-          restart! server, [wait * 2, 60].min
+        case e.message
+        when 'account_inactive', 'invalid_auth' then
+          logger.error "#{team.name}: #{e.message}, team will be deactivated."
+          team.deactivate!
+        else
+          logger.error "#{team.name}: #{e.message}, restarting in #{wait} second(s)."
+          sleep(wait)
+          EM.next_tick do
+            restart! team, server, [wait * 2, 60].min
+          end
         end
       end
     end
