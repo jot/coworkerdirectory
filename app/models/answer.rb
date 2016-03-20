@@ -70,6 +70,7 @@ class Answer < ActiveRecord::Base
   end
 
   def ask_question
+    sleep(2)
     if question_message_id.nil?
       if self.question_text.nil?
         m = user.send_im(question.text)

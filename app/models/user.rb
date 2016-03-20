@@ -113,6 +113,7 @@ class User < ActiveRecord::Base
   def answer_question(message)
     answer = answers.where(:answer_message_id=>nil).order(:asked_at=>:desc).first
     if answer.present?
+      puts "found answer"
       answer.receive_answer(message)
       if answer.question_id.nil?
         index = self.next_welcome_message
@@ -124,6 +125,8 @@ class User < ActiveRecord::Base
       else
         answer_next_question
       end
+    else
+      puts "no answer"
     end
   end
 
@@ -145,6 +148,7 @@ class User < ActiveRecord::Base
   def answer_next_question
     if questions.empty?
       send_im("That’s it! I’ll leave you to getting on with meeting other members on your own for a bit. Keep an eye out for more messages from me in a few days. I’ll let you know if anyone asks about working with you and if I spot another member you should meet.")
+      sleep(3)
       send_im("Oh and you now have a lovely looking profile at: #{team.domain}.cabinbot.com/users/#{name}")
     else
       a = Answer.create(:user_id=>self.id, :question_id=>questions.first.id)
@@ -293,7 +297,7 @@ class User < ActiveRecord::Base
 
   def send_im(text)
     im = slack_client.im_open(user: uid)
-    Message.create_from_slack_data(slack_client.chat_postMessage(channel: im["channel"]["id"], text: text, as_user: true, parse: "full"), team_uid)
+    team.create_message_from_slack_data(slack_client.chat_postMessage(channel: im["channel"]["id"], text: text, as_user: true, parse: "full"))
   end
 
 

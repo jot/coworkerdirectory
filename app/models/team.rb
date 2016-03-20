@@ -15,6 +15,10 @@ class Team < ActiveRecord::Base
 
   scope :active, -> { where(is_active: true) }
 
+  def create_message_from_slack_data(data)
+    Message.create_from_slack_data(data, self)
+  end
+
   def deactivate!
     update_attributes!(is_active: false)
   end
@@ -67,13 +71,19 @@ class Team < ActiveRecord::Base
     if image_url.present?
       attachments = [{"fallback":"A fun gif", "image_url": image_url}]
     end
-    Message.create_from_slack_data(slack_client.chat_postMessage(channel: general_channel.uid, text: message, as_user: true, attachments: attachments), self.uid)
+    create_message_from_slack_data(slack_client.chat_postMessage(channel: general_channel.uid, text: message, as_user: true, attachments: attachments))
   end
 
   def send_im(user_uid, message)
     im = slack_client.im_open(user: user_uid)
-    Message.create_from_slack_data(slack_client.chat_postMessage(channel: im["channel"]["id"], text: message, as_user: true), self.uid)
+    send_message(im["channel"]["id"], message)
   end
+
+
+  def send_message(channel_uid, message)
+    create_message_from_slack_data(slack_client.chat_postMessage(channel: channel_uid, text: message, as_user: true))
+  end
+
 
   def members
     users
@@ -91,6 +101,16 @@ class Team < ActiveRecord::Base
     user.slack_client_user
   end
 
+
+  def create_user_from_slack_id(user_uid)
+    u = User.where(:uid=>user_uid).first_or_create
+    u.provider = "slack"
+    u.team_uid = self.uid
+    u.team_name = self.name
+    u.team_domain = self.domain
+    u.save
+    return u
+  end
 
   def load_users
     get_users.each do |user|
