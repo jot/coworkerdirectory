@@ -11,3 +11,10 @@ task :update_all_team_data => :environment do
   Team.update_all_data
   puts "done."
 end
+
+
+task :update_all_user_scores => :environment do
+  puts "Update all scores..."
+  User.get_all_scores
+  puts "done."
+end

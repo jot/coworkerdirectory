@@ -4,8 +4,59 @@ class User < ActiveRecord::Base
 
   has_many :answers
 
+
+  def full_name
+    t = clearbit_data["person"]["name"]["fullName"] unless clearbit_data.nil? || clearbit_data["person"].nil? || clearbit_data["person"]["name"].nil?
+    t
+  end
+
+  def twitter_handle
+    t = clearbit_data["person"]["twitter"]["handle"] unless clearbit_data.nil? || clearbit_data["person"].nil? || clearbit_data["person"]["twitter"].nil?
+    t ||= clearbit_data["company"]["twitter"]["handle"] unless clearbit_data.nil? || clearbit_data["company"].nil? || clearbit_data["company"]["twitter"].nil?
+    t
+  end
+
+  def company_name
+    clearbit_data["company"]["name"] unless clearbit_data.nil? || clearbit_data["company"].nil?
+  end
+
+  def site
+    w = clearbit_data["person"]["site"] unless clearbit_data.nil? || clearbit_data["person"].nil? || clearbit_data["person"]["site"].nil?
+    w ||= clearbit_data["company"]["site"]["url"] unless clearbit_data.nil? || clearbit_data["company"].nil? || clearbit_data["company"]["site"].nil?
+    w
+  end
+
+  def logo
+    clearbit_data["company"]["logo"] unless clearbit_data.nil? || clearbit_data["company"].nil?
+  end
+  
+  def get_clearbit(force=false)
+    if self.clearbit_data.nil? || force
+      unless self.email.blank?
+        result = Clearbit::Enrichment.find(email: email, stream: true)
+        if result.person || result.company
+          self.clearbit_data = result
+          self.save
+        end
+      end
+    end
+  end
+
+
+  def get_score
+    unless presences.nil?
+      self.score = presences.where("created_at > ?", 1.month.ago.at_beginning_of_day).select("date_trunc('day', created_at)").distinct.count
+      self.save
+    end
+  end
+
   def presences
-    team.presences.where("active_ids @> ?",[self.id].to_json)
+    team.presences.where("active_ids @> ?",[self.id].to_json) unless team.nil?
+  end
+
+  def presence_counts(since=Time.parse("2016-02-01"))
+    presences.where("created_at > ?", since).group("date_trunc('day', created_at)").order("date_trunc('day', created_at
+)").count
   end
 
   def answered_questions
@@ -222,6 +273,13 @@ class User < ActiveRecord::Base
     end
     self.save
   end
+
+  def self.get_all_scores
+    User.all.each do |user|
+      user.get_score
+    end
+  end
+
 
   def self.load_all_reactions
     User.all.each do |user|

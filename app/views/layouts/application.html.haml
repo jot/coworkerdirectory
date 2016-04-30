@@ -8,9 +8,9 @@
     %meta{:content => "", :name => "keywords"}/
     %meta{:content => "", :name => "author"}/
     %title
-      Home ·
+      = yield :title
     %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600", :rel => "stylesheet", :type => "text/css"}/
-    %link{:rel=>"icon", :href=>"/favicon.ico"}
+    = render 'favicon'
     = stylesheet_link_tag 'ui', media: 'all', 'data-turbolinks-track' => true
     :css
       /* note: this is a hack for ios iframe for bootstrap themes shopify page */
@@ -43,7 +43,7 @@
             %span.icon-bar
           %a.navbar-brand{:href => "/"}
             = current_team.name
-            Community Directory
+            Coworker Directory
         #navbar-collapse-main.navbar-collapse.collapse
           %ul.nav.navbar-nav.hidden-xs
             %li.active
@@ -91,7 +91,7 @@
             .panel-body
               Curated by
               %a{:href => "http://cabinbot.com"}
-                %img{:alt => "cabinbot", :src => asset_path('cabinbot-logo-small-black.png'), :width => "22px"}/
+                %img{:alt => "cabinbot", :src => asset_path('cabinbot-grey-125x125.png'), :width => "22px"}/
               %a.pull-right{:href => "http://worksnug.com"} Comfortably productive.
     = javascript_include_tag 'ui', 'data-turbolinks-track' => true
     :javascript

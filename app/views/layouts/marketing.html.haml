@@ -8,9 +8,9 @@
     %meta{:content => "", :name => "keywords"}/
     %meta{:content => "", :name => "author"}/
     %title
-      Cabinbot Pricing
+      = yield :title
     %link{:href => "https://fonts.googleapis.com/css?family=Lora:400,400italic|Work+Sans:300,400,500,600", :rel => "stylesheet", :type => "text/css"}/
-    %link{:rel=>"icon", :href=>"favicon.ico"}
+    = render 'favicon'
     = stylesheet_link_tag 'marketing', media: 'all', 'data-turbolinks-track' => true
     :css
       /* note: this is a hack for ios iframe for bootstrap themes shopify page */

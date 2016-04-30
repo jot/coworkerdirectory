@@ -1,27 +1,7 @@
-%p#notice= notice
-
-%p
-  %b Name:
-  = @team.name
-%p
-  %b Uid:
-  = @team.uid
-%p
-  %b Domain:
-  = @team.domain
-%p
-  %b Email domain:
-  = @team.email_domain
-%p
-  %b Bot user:
-  = @team.bot_user_id
-%p
-  %b Bot access token:
-  = @team.bot_access_token
-%p
-  %b Slack data:
-  = @team.slack_data
-
-= link_to 'Edit', edit_team_path(@team)
-\|
-= link_to 'Back', teams_path
+.row
+  - @team.users.each do |user|
+    - unless user.is_bot?
+      = image_tag user.image_url, :class=>"img-circle", :size=>"100x100"
+  - @team.users.each do |user|
+    - unless user.is_bot?
+      = image_tag user.logo, :class=>"img-thumbnail"

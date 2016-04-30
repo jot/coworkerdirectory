@@ -8,9 +8,9 @@
     %meta{:content => "", :name => "keywords"}/
     %meta{:content => "", :name => "author"}/
     %title
-      Cabinbot: Community Management for Slack
+      = yield :title
     %link{:href => "https://fonts.googleapis.com/css?family=Lora:400,400italic|Work+Sans:300,400,500,600", :rel => "stylesheet", :type => "text/css"}/
-    %link{:rel=>"icon", :href=>"favicon.ico"}
+    = render 'favicon'
     = stylesheet_link_tag 'marketing', media: 'all', 'data-turbolinks-track' => true
     :css
       /* note: this is a hack for ios iframe for bootstrap themes shopify page */
@@ -61,13 +61,18 @@
           .container
             .row
               .col-sm-10.col-md-7
-                %h1.block-title.m-b-sm Community Management for Slack.
+                %h1.block-title.m-b-sm Are you doing enough to stop team members from jumping ship?
                 %p.lead.m-b-md.text-muted
-                  You didn't start your community to watch slackbot sitting alone above a long list of faded names.
-                  %br/
-                  It's time to fire up some conversations and help your members list glow brighter every day.
-                %a{:href => "/auth/slack"}
-                  %img{:alt => "Add to Slack", :height => "40", :src => "https://platform.slack-edge.com/img/add_to_slack.png", :srcset => "https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x", :width => "139"}/
+                  %strong Nobody wants to sign in to Slack to see slackbot sitting alone above a long list of faded names.
+                %p.lead.m-b-md.text-muted
+                  Imagine if you could see your whole crew on deck together anytime, anywhere.
+                %p.lead.m-b-md.text-muted
+                  Cabinbot will curate a deck of crew profiles fit for a surprise admiral's inspection.
+                %p.lead.m-b-md.text-muted
+                  %strong
+                    Create your directory of esteemed coworkers in just two clicks:
+                  %a{:href => "/auth/slack"}
+                    %img{:alt => "Add to Slack", :height => "40", :src => "https://platform.slack-edge.com/img/add_to_slack.png", :srcset => "https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x", :width => "139"}/
       = yield
       .block.block-inverse.app-footer
         = render partial: 'layouts/footer'

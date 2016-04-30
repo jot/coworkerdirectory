@@ -54,8 +54,8 @@ class Team < ActiveRecord::Base
 
 
   def members_list
-    users.find(presences.last.active_ids)
-    # users.order('photo_score DESC NULLS LAST').order('last_activity_at DESC NULLS LAST')
+    # users.order('score DESC NULLS LAST')
+    users.order('score DESC NULLS LAST').order('last_activity_at DESC NULLS LAST').limit(20)
   end
 
 

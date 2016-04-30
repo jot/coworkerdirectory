@@ -1,3 +1,6 @@
+-content_for :title do
+  = current_team.name
+  Coworker Directory
 .row
   - @users.each do |user|
     = render user unless user.is_bot?

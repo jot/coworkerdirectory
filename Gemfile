@@ -20,6 +20,7 @@ gem 'high_voltage'
 gem 'omniauth'
 gem 'omniauth-slack', :github => "jot/omniauth-slack", :branch => "dynamic-scopes"
 gem 'pg'
+gem 'schema_plus_pg_indexes'
 gem 'resque', "~> 1.22.0"
 gem 'puma'
 gem 'pundit'
@@ -32,6 +33,7 @@ gem 'gravatar-ultimate'
 gem 'twitter-text'
 gem 'newrelic_rpm'
 gem 'newrelic-slack-ruby-bot'
+gem 'clearbit'
 group :development do
   # gem 'koudoku', path: '/Users/jot/code/koudoku'
   gem 'dotenv-rails'
@@ -48,6 +50,7 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'spring-commands-rspec'
+  gem 'rails_real_favicon'
 end
 group :development, :test do
   gem 'factory_girl_rails'

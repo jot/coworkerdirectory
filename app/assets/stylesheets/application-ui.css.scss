@@ -4,6 +4,32 @@
  * copyright @colossal 2015
  */
 
+
+.user-panel{
+  .panel-heading{
+    background-position: center; 
+  }
+}
+// .user-panel{
+//   position: relative;
+//   overflow: hidden;
+//   .panel-heading{
+//     position: absolute;
+//     background-position: center; 
+//     transform: scale(1.1);
+//     z-index: -1;
+//     height:150px;
+//   }
+//   .panel-body{
+//     z-index: 999;
+//     a{
+//       img{
+//         z-index: 999;
+//       } 
+//     }
+//   }
+// }
+
 /* docs overrides */
 .highlight {
   background-color: #fff;

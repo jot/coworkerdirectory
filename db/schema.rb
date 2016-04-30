@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314095911) do
+ActiveRecord::Schema.define(version: 20160417104209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20160314095911) do
     t.datetime "asked_at"
     t.datetime "answered_at"
     t.integer  "asked_by"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",          :null=>false
+    t.datetime "updated_at",          :null=>false
     t.string   "property_name"
   end
 
@@ -45,15 +45,15 @@ ActiveRecord::Schema.define(version: 20160314095911) do
     t.integer  "team_id"
     t.jsonb    "slack_data"
     t.jsonb    "properties"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",  :null=>false
+    t.datetime "updated_at",  :null=>false
   end
 
   create_table "coupons", force: :cascade do |t|
     t.string   "code"
     t.string   "free_trial_length"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",        :null=>false
+    t.datetime "updated_at",        :null=>false
   end
 
   create_table "messages", force: :cascade do |t|
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 20160314095911) do
     t.integer  "user_id"
     t.json     "properties"
     t.json     "slack_data"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",      :null=>false
+    t.datetime "updated_at",      :null=>false
   end
 
   create_table "plans", force: :cascade do |t|
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20160314095911) do
     t.text     "features"
     t.boolean  "highlight"
     t.integer  "display_order"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",    :null=>false
+    t.datetime "updated_at",    :null=>false
   end
 
   create_table "presences", force: :cascade do |t|
@@ -95,8 +95,9 @@ ActiveRecord::Schema.define(version: 20160314095911) do
     t.jsonb    "away_uids"
     t.jsonb    "slack_api_data"
     t.datetime "checked_at"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",     :null=>false
+    t.datetime "updated_at",     :null=>false
+    t.index :name=>"presences_creation_day_index", :expression=>"date_trunc('day'::text, created_at)"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -105,8 +106,8 @@ ActiveRecord::Schema.define(version: 20160314095911) do
     t.text     "response"
     t.integer  "priority"
     t.integer  "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", :null=>false
+    t.datetime "updated_at", :null=>false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -117,8 +118,8 @@ ActiveRecord::Schema.define(version: 20160314095911) do
     t.string   "card_type"
     t.float    "current_price"
     t.integer  "team_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",    :null=>false
+    t.datetime "updated_at",    :null=>false
   end
 
   create_table "teams", force: :cascade do |t|
@@ -129,19 +130,19 @@ ActiveRecord::Schema.define(version: 20160314095911) do
     t.string   "bot_user_id"
     t.string   "bot_access_token"
     t.json     "slack_data"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",       :null=>false
+    t.datetime "updated_at",       :null=>false
     t.integer  "user_id"
     t.string   "user_uid"
-    t.boolean  "is_active",        default: true, null: false
+    t.boolean  "is_active",        :default=>true, :null=>false
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                      :null=>false
+    t.datetime "updated_at",                      :null=>false
     t.integer  "role"
     t.json     "slack_auth_data"
     t.json     "slack_api_data"
@@ -159,6 +160,8 @@ ActiveRecord::Schema.define(version: 20160314095911) do
     t.jsonb    "admin_welcome_messages"
     t.jsonb    "public_welcome_message"
     t.jsonb    "private_welcome_messages"
+    t.integer  "score"
+    t.jsonb    "clearbit_data"
   end
 
 end

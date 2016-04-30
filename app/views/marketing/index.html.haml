@@ -3,11 +3,28 @@
     .row.app-align-center
       .col-sm-5.col-sm-push-7
         %h3.m-t-0.m-b-md “My first day hanging out with people I'd never met before felt like a reunion with old friends.”
-        %p.m-b-md.text-muted Next Member, Your Community
+        %p.m-b-md.text-muted Next Member, Your Team
       .col-sm-6.col-sm-pull-5
-        %h6.text-muted.text-uppercase Member onboarding
-        %h3.m-t-0 A warm welcome for every new member
-        %p.lead.m-b-md Cabinbot will help make your members feel at home from the moment they join.
+        %h6.text-muted.text-uppercase First class onboarding
+        %h3.m-t-0 How awkward is it joining your Slack team for the first time?
+        %p.lead.m-b-md
+          Do you feel like you've landed on the deck of a ship in the middle of a storm? Overwhelmed by all the activity, the last thing you want to do is distract everyone. You'll get around to introducing yourself some other time. Weeks later you decide it's probably too late to bother.
+        %h4.m-t-0 What about returning after a long break?
+        %p.lead.m-b-md
+          Maybe it's worse. You feel like you've climbed aboard a becalmed ghost ship infested with tumble weed. First you worry about what might creep out of the shadows if you make a noise. Then you wonder if it'll ever be worth signing in again. You can see it's been months since anyone posted in the #introductions channel. There doesn't seem much point changing that now.
+        %h4.m-t-0 You need a lookout
+        %p.lead.m-b-md
+          What if someone was always keeping watch over new and returning members. They take time to make them feel at home from the moment they sign in. Your crew work so well together they behave like perfect party hosts through the good times and bad.
+        %p.lead.m-b-md
+          %strong
+            Cabinbot will make sure your team members all receive a warm welcome whenever they climb aboard.
+          He'll show them the ropes at a pace that works for them. He strives to find a perfect balance of providing support and keeping out of your way. Cabinbot his happiest when you and your crew are doing your best work.
+        %p.lead.m-b-md
+          %strong
+            Make Cabinbot your round-the-clock watch keeper in just two clicks:
+          %a{:href => "/auth/slack"}
+            %img{:alt => "Add to Slack", :height => "40", :src => "https://platform.slack-edge.com/img/add_to_slack.png", :srcset => "https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x", :width => "139"}/
+
 / .block.block-inverse.block-secondary.app-code-block
 /   .container
 /     .row.app-align-center
@@ -46,16 +63,24 @@
       .col-sm-5.hidden-xs
         %img.app-iphone{:src => asset_path('community-directory.png'), :style => "width: 100%;"}/
       .col-sm-6.col-sm-offset-1
-        %h6.text-muted.text-uppercase Community Directory
-        %h3.m-t-0 Show off the members who make a difference
-        %p.lead.m-b-md.text-muted Cabinbot curates a directory of your members that you'll want to parade around the world.
-        .row.hidden-sm
-          .col-sm-6.m-b-md.text-muted
-            %h5.m-y-0 Inspires connections
-            %p Every profile has clear calls to action prompting users to start conversations.
-          .col-sm-6.text-muted
-            %h5.m-y-0 Always fresh
-            %p Cabinbot makes sure your members update their profiles every month.
+        %h6.text-muted.text-uppercase Who's on deck?
+        %h3.m-t-0 How often do you manage to get your whole team in a room together?
+        %p.lead.m-b-md.text-muted
+          As brilliant as Slack is, it's unresaonable to expect everyone to be online all the time. But if you're not in the office with them and they're not online how will you ever get to know them? You could spend time every day searching through all the chat history. But you've got work to do.
+        %p.lead.m-b-md.text-muted
+          The greatest minds in your organisation might be capable of the colloboration of the centery. But they don't even know each other exists.
+        %p.lead.m-b-md.text-muted
+          Imagine if your whole crew was within sight of each other every day. You'd all take pride in the diversity of your organisation. You'd all find more ways to do your best work together.
+        %p.lead.m-b-md.text-muted
+          But it's almost impossible to get them all online at the same time. How could you get them in the same place every day?
+        %p.lead.m-b-md.text-muted
+          Every day Cabinbot will curate a deck of profiles showing your whole crew in all their glory. He'll make sure they're shipshape and up-to-date so you'll be proud to inspect them whenever you choose to. Every week Cabinbot will highlight the most interesting profiles so everyone is recognised for their contributions. You and your crew will always feel surrounded esteemed colleagues.
+        %p.lead.m-b-md.text-muted
+          %strong
+            Instantly generate your coworker directory:
+          %a{:href => "/auth/slack"}
+            %img{:alt => "Add to Slack", :height => "40", :src => "https://platform.slack-edge.com/img/add_to_slack.png", :srcset => "https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x", :width => "139"}/
+
 / .block.app-ribbon.p-y-lg
 /   .container.text-center
 /     =link_to "http://theskiff.org" do
@@ -64,30 +89,30 @@
   .container.text-center
     .row.m-b-lg
       .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-lg-6.col-lg-offset-3
-        %h6.text-muted.text-uppercase Our Values
-        %h3.m-t-0.m-b 3 reasons why we built cabinbot.
+        %h6.text-muted.text-uppercase Keeping everything shipshape
+        %h3.m-t-0.m-b 3 reasons why we built Cabinbot.
     .row.app-marketing-grid
       .col-sm-4.p-x-md.m-b-lg
         %span.icon.icon-hand.m-b
         %p
           %strong Welcome.
-          No matter when a member joins a community they should know how happy you are that they're getting involved.
+          No matter when a member joins your team they should know how happy you are that they're getting involved.
       .col-sm-4.p-x-md.m-b-lg
         %span.icon.icon-users
         %p
           %strong Recognise.
-          Every community member should have a way to learn something about every other member of their community.
+          Every team member should have a way to learn something interesting about every other member of their organisation.
       .col-sm-4.p-x-md.m-b-lg
         %span.icon.icon-trophy
         %p
           %strong Reward.
-          The more a community member contributes to their community, the more they should get out of their membership.
+          The more a team member contributes to their organisation, the more at home they should feel.
 .row.m-b-lg
   .col-xs-10.col-xs-offset-1.col-sm-10.col-sm-offset-1.col-lg-8.col-lg-offset-2
     .callout
       .callout-content
-        %strong Put cabinbot to work.
-        Start building your membership directory with a single click.
+        %strong Put Cabinbot to work.
+        Start welcoming, recognising and rewarding your team mates with two clicks.
       .callout-secondary
         %a{:href => "/auth/slack"}
           %img{:alt => "Add to Slack", :height => "40", :src => "https://platform.slack-edge.com/img/add_to_slack.png", :srcset => "https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x", :width => "139"}/
