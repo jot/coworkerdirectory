@@ -55,7 +55,7 @@ class Team < ActiveRecord::Base
 
   def members_list
     # users.order('score DESC NULLS LAST')
-    users.order('score DESC NULLS LAST').order('last_activity_at DESC NULLS LAST').limit(20)
+    users.where('score > 0').order('score DESC NULLS LAST').order('last_activity_at DESC NULLS LAST').limit(20)
   end
 
 

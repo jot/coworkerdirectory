@@ -1,0 +1,21 @@
+---
+development:
+  cloud_name: worksnug
+  api_key: '327485689455515'
+  api_secret: P6WbeKyfA8bQbESFeU0zfwQzj50
+  enhance_image_tag: true
+  static_image_support: false
+  secure: true
+production:
+  cloud_name: worksnug
+  api_key: '327485689455515'
+  api_secret: P6WbeKyfA8bQbESFeU0zfwQzj50
+  enhance_image_tag: true
+  static_image_support: true
+  secure: true
+test:
+  cloud_name: worksnug
+  api_key: '327485689455515'
+  api_secret: P6WbeKyfA8bQbESFeU0zfwQzj50
+  enhance_image_tag: true
+  static_image_support: false

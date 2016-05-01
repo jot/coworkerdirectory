@@ -10,19 +10,59 @@ class User < ActiveRecord::Base
     t
   end
 
+  def bio
+    t = clearbit_data["person"]["bio"] unless clearbit_data.nil? || clearbit_data["person"].nil? || clearbit_data["person"]["bio"].nil?
+    t ||= slack_api_data["profile"]["title"]
+    t
+  end
+
+
   def twitter_handle
     t = clearbit_data["person"]["twitter"]["handle"] unless clearbit_data.nil? || clearbit_data["person"].nil? || clearbit_data["person"]["twitter"].nil?
-    t ||= clearbit_data["company"]["twitter"]["handle"] unless clearbit_data.nil? || clearbit_data["company"].nil? || clearbit_data["company"]["twitter"].nil?
     t
+  end
+
+  def facebook_handle
+    t = clearbit_data["person"]["facebook"]["handle"] unless clearbit_data.nil? || clearbit_data["person"].nil? || clearbit_data["person"]["facebook"].nil?
+    t
+  end
+
+  def linkedin_handle
+    t = clearbit_data["person"]["linkedin"]["handle"] unless clearbit_data.nil? || clearbit_data["person"].nil? || clearbit_data["person"]["linkedin"].nil?
+    t
+  end
+
+  def github_handle
+    t = clearbit_data["person"]["github"]["handle"] unless clearbit_data.nil? || clearbit_data["person"].nil? || clearbit_data["person"]["github"].nil?
+    t
+  end
+
+  def company_twitter_handle
+    clearbit_data["company"]["twitter"]["handle"] unless clearbit_data.nil? || clearbit_data["company"].nil? || clearbit_data["company"]["twitter"].nil?
+  end
+
+  def company_facebook_handle
+    clearbit_data["company"]["facebook"]["handle"] unless clearbit_data.nil? || clearbit_data["company"].nil? || clearbit_data["company"]["facebook"].nil?
+  end
+
+  def company_linkedin_handle
+    clearbit_data["company"]["linkedin"]["handle"] unless clearbit_data.nil? || clearbit_data["company"].nil? || clearbit_data["company"]["linkedin"].nil?
+  end
+
+  def company_github_handle
+    clearbit_data["company"]["github"]["handle"] unless clearbit_data.nil? || clearbit_data["company"].nil? || clearbit_data["company"]["github"].nil?
   end
 
   def company_name
     clearbit_data["company"]["name"] unless clearbit_data.nil? || clearbit_data["company"].nil?
   end
 
+  def company_site
+    clearbit_data["company"]["site"]["url"] unless clearbit_data.nil? || clearbit_data["company"].nil? || clearbit_data["company"]["site"].nil?
+  end
+
   def site
     w = clearbit_data["person"]["site"] unless clearbit_data.nil? || clearbit_data["person"].nil? || clearbit_data["person"]["site"].nil?
-    w ||= clearbit_data["company"]["site"]["url"] unless clearbit_data.nil? || clearbit_data["company"].nil? || clearbit_data["company"]["site"].nil?
     w
   end
 
@@ -44,10 +84,29 @@ class User < ActiveRecord::Base
 
 
   def get_score
-    unless presences.nil?
-      self.score = presences.where("created_at > ?", 1.month.ago.at_beginning_of_day).select("date_trunc('day', created_at)").distinct.count
-      self.save
+    if is_bot?
+      self.score = -1000
+    else
+      self.score = 0
+      self.score = self.score + 10 if full_name.present?
+      self.score = self.score + 20 if bio.present?
+      self.score = self.score + 10 if site.present?
+      if image_url.present? && image_url2.present? && image_url != image_url2
+        self.score = self.score + 10
+      end
+      if twitter_handle.present? || facebook_handle.present? || linkedin_handle.present? || github_handle.present?
+        self.score = self.score + 10
+      end
+      unless presences.nil?
+        self.score = self.score + presences.where("created_at > ?", 1.month.ago.at_beginning_of_day).select("date_trunc('day', created_at)").distinct.count
+      end
+      unless answered_questions.empty?
+        self.score = self.score + answered_questions.where("created_at > ?", 1.month.ago.at_beginning_of_day).count
+      end
+
+      self.score = self.score - 20 if clearbit_data.present? && clearbit_data["person"].present? && ["male","Male"].include?(clearbit_data["person"]["gender"])
     end
+    self.save
   end
 
   def presences
@@ -250,6 +309,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def image_url2
+    t = clearbit_data["person"]["avatar"] unless clearbit_data.nil? || clearbit_data["person"].nil?
+    t ||= image_url
+    t
+  end
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth['provider']
@@ -353,9 +418,9 @@ class User < ActiveRecord::Base
     team.bot_user_id
   end
 
-  def send_im(text)
+  def send_im(text, attachments = [])
     im = slack_client.im_open(user: uid)
-    team.create_message_from_slack_data(slack_client.chat_postMessage(channel: im["channel"]["id"], text: text, as_user: true, parse: "full"))
+    team.create_message_from_slack_data(slack_client.chat_postMessage(channel: im["channel"]["id"], text: text, as_user: true, parse: "full", attachments: attachments))
   end
 
 

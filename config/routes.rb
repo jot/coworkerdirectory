@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  resources :enquiries
   resources :presences
   resources :answers
   resources :questions

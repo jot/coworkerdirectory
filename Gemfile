@@ -34,6 +34,9 @@ gem 'twitter-text'
 gem 'newrelic_rpm'
 gem 'newrelic-slack-ruby-bot'
 gem 'clearbit'
+gem 'cloudinary'
+gem 'email_validator'
+
 group :development do
   # gem 'koudoku', path: '/Users/jot/code/koudoku'
   gem 'dotenv-rails'

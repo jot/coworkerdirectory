@@ -1,0 +1,19 @@
+= simple_form_for(@enquiry) do |f|
+  = f.error_notification
+
+  .form-inputs
+    %strong
+      To:
+    %h3
+      =@enquiry.user.full_name
+      %small
+        =@enquiry.user.name
+    = f.input :user_id, :as=>"hidden"
+    = f.input :name
+    = f.input :email
+    = f.input :subject
+    = f.input :text
+
+  .form-actions
+    = f.button :submit, "Send", :class=>"btn btn-success"
+    = link_to "Cancel", root_path, :class=>"btn btn-default"

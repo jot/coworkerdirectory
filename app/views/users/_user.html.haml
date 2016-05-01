@@ -1,40 +1,79 @@
 .col-md-6
   .panel.panel-default.panel-profile.m-b-md.user-panel
-    .panel-heading.user-panel-blur{:style => "background-image: url(#{user.image_url}); background-color: ##{user.color}"}
+    .panel-heading{:style => "background-image: url(#{Cloudinary::Utils.cloudinary_url(user.image_url2, :width => 463, :height => 150,:crop => :thumb, :gravity => :face, :effect => 'colorize:80', :color=> 'rgb:'+user.color, :fetch_format=>:auto, :type=>"fetch")}); background-color: ##{user.color};"}
     .panel-body.text-center
-      =link_to user do
-        = image_tag user.image_url, :class=>"panel-profile-img"
-        = image_tag user.logo, :class=>"panel-profile-img img-thumbnail"
+      = link_to user do
+        = cl_image_tag user.image_url, :class=>"panel-profile-img", :width => 100, :height => 100, :style=>"height: 100px;"
+        - unless user.logo.nil?
+          = image_tag user.logo, :class=>"panel-profile-img", :width => 100, :height => 100, :style=>"height: 100px;"
       %h5.panel-title
         =link_to user, :class=>"text-inherit" do
           = user.full_name
           %small
             = user.name
-      %p.m-b-md{:style=>"height:22px"}
+      %p{:style=>"height:44px; overflow:hidden;"}<
+        - unless user.bio.blank?
+          = user.bio
+      %p{:style=>"height:22px"}<
         - unless user.company_name.blank?
-          = user.company_name
+          =link_to user.company_site, :target=>"_blank", :rel=>"nofollow" do
+            = user.company_name
           |
         - unless user.site.blank?
-          = user.site
+          =link_to user.site, :target=>"_blank", :rel=>"nofollow" do
+            = user.site
+      %p{:style=>"height:22px"}<
         - unless user.twitter_handle.blank?
-          %span.icon.icon-twitter
-          = user.twitter_handle
+          = link_to "http://twitter.com/#{user.twitter_handle}", :target=>"_blank", :rel=>"nofollow" do
+            %span.icon.icon-twitter>
+        - unless user.facebook_handle.blank?
+          &nbsp;
+          = link_to "http://facebook.com/#{user.facebook_handle}", :target=>"_blank", :rel=>"nofollow" do
+            %span.icon.icon-facebook>
+        - unless user.linkedin_handle.blank?
+          &nbsp;
+          = link_to "http://linkedin.com/#{user.linkedin_handle}", :target=>"_blank", :rel=>"nofollow" do
+            %span.icon.icon-linkedin>
+        - unless user.github_handle.blank?
+          &nbsp;
+          = link_to "http://github.com/#{user.github_handle}", :target=>"_blank", :rel=>"nofollow" do
+            %span.icon.icon-github>
 
-      %ul.panel-menu
-        %li.panel-menu-item
-          %a.text-inherit
-            = user.answered_questions.count
-            questions answered
-        %li.panel-menu-item
-          %a.text-inherit
-            = user.channels.count
-            channels joined
-        %li.panel-menu-item
-          %a.text-inherit
-            =user.score
-            days present
-            
-      / %a.btn.btn-success{:href => "#"}
-      /   Contact
-      /   = user.name
-      = link_to "Learn more", user, :class=>"btn btn-primary"
+      .btn-group.btn-group-justified
+        .btn-group
+          = link_to user, :class=>"btn btn-success btn-block" do
+            - if user.answered_questions.count > 0
+              %span.badge
+                = user.answered_questions.count
+              Questions answered
+            - else
+              %span.icon.icon-help-with-circle
+              Ask a question
+        .btn-group
+          %button.btn.btn-primary{"data-target" => "#message-modal-#{user.id}", "data-toggle" => "modal", :type => "button"}
+            %span.icon.icon-mail
+            Send a message
+
+.modal.fade{:id=>"message-modal-#{user.id}", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    = simple_form_for(Enquiry.new(:user_id=>user.id)) do |f|
+      .modal-content
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          %h4#myModalLabel.modal-title
+            Send a message to
+            = user.name
+        .modal-body
+          = f.error_notification
+
+          = f.input :user_id, :as => :hidden
+          = f.input :name
+          = f.input :email
+          = f.input :subject
+          = f.input :text
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+          = f.button :submit, "Send", :class=>"btn btn-success"
+         
+      

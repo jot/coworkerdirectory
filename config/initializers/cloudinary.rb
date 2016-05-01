@@ -1,0 +1,1 @@
+Cloudinary.config_from_url("cloudinary://327485689455515:P6WbeKyfA8bQbESFeU0zfwQzj50@worksnug")
