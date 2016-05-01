@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
     if self.clearbit_data.nil? || force
       unless self.email.blank?
         result = Clearbit::Enrichment.find(email: email, stream: true)
-        if result.person || result.company
+        if result.present? && (result.person || result.company)
           self.clearbit_data = result
           self.save
         end
