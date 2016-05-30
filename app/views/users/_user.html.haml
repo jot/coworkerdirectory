@@ -14,11 +14,10 @@
       %p{:style=>"height:44px; overflow:hidden;"}<
         - unless user.bio.blank?
           = user.bio
-      %p{:style=>"height:22px"}<
+      %p{:style=>"height:22px; overflow:hidden;"}<
         - unless user.company_name.blank?
           =link_to user.company_site, :target=>"_blank", :rel=>"nofollow" do
             = user.company_name
-          |
         - unless user.site.blank?
           =link_to user.site, :target=>"_blank", :rel=>"nofollow" do
             = user.site
