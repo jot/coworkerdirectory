@@ -3,9 +3,9 @@
     .panel-heading{:style => "background-image: url(#{Cloudinary::Utils.cloudinary_url(user.image_url2, :width => 463, :height => 150,:crop => :thumb, :gravity => :face, :effect => 'colorize:80', :color=> 'rgb:'+user.color, :fetch_format=>:auto, :type=>"fetch")}); background-color: ##{user.color};"}
     .panel-body.text-center
       = link_to user do
-        = cl_image_tag user.image_url, :class=>"panel-profile-img", :width => 100, :height => 100, :style=>"height: 100px;"
+        = cl_image_tag user.image_url, :class=>"panel-profile-img", :width => 100, :height => 100, :style=>"height: 100px;", :onerror=>"this.style.display='none';"
         - unless user.logo.nil?
-          = image_tag user.logo, :class=>"panel-profile-img", :width => 100, :height => 100, :style=>"height: 100px;"
+          = image_tag user.logo, :class=>"panel-profile-img", :width => 100, :height => 100, :style=>"height: 100px;", :onerror=>"this.style.display='none';"
       %h5.panel-title
         =link_to user, :class=>"text-inherit" do
           = user.full_name
@@ -41,15 +41,6 @@
 
       .btn-group.btn-group-justified
         .btn-group
-          = link_to user, :class=>"btn btn-success btn-block" do
-            - if user.answered_questions.count > 0
-              %span.badge
-                = user.answered_questions.count
-              Questions answered
-            - else
-              %span.icon.icon-help-with-circle
-              Ask a question
-        .btn-group
           %button.btn.btn-primary{"data-target" => "#message-modal-#{user.id}", "data-toggle" => "modal", :type => "button"}
             %span.icon.icon-mail
             Send a message
@@ -66,12 +57,10 @@
             = user.name
         .modal-body
           = f.error_notification
-
+          = f.input :text, label: "Message"
           = f.input :user_id, :as => :hidden
-          = f.input :name
-          = f.input :email
-          = f.input :subject
-          = f.input :text
+          = f.input :name, label: "Your name"
+          = f.input :email, label: "Your email"
         .modal-footer
           %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
           = f.button :submit, "Send", :class=>"btn btn-success"

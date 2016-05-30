@@ -45,15 +45,6 @@
             = current_team.name
             Coworker Directory
         #navbar-collapse-main.navbar-collapse.collapse
-          %ul.nav.navbar-nav.hidden-xs
-            %li.active
-              = link_to "Members", users_path
-            / %li
-            /   = link_to "Q&A", questions_path
-            %li
-              = link_to "Channels", channels_path
-            / %li
-            /   = link_to "Presence", presences_path
           %ul.nav.navbar-nav.navbar-right.m-r-0.hidden-xs
             -if user_signed_in?
               %li

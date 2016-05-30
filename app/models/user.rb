@@ -279,7 +279,7 @@ class User < ActiveRecord::Base
   end
 
   def color
-    slack_api_data["color"]
+    slack_api_data["color"] ? slack_api_data["color"] : "#ffffff"
   end
 
   def background_image
