@@ -10,4 +10,12 @@ class Enquiry < ActiveRecord::Base
   validates :email, presence: true, email: true
   validates :text, presence: true
 
+  def team
+    user.team
+  end
+
+  def user_name
+    user.full_name
+  end
+
 end

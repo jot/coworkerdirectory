@@ -9,7 +9,7 @@ class SetUpNewTeam
     t.load_channels
     t.load_questions
     t.admin.create_welcome_messages
-    t.notify_inuda
+    t.notify_inuda("#{self.domain}.cabinbot.com created by #{self.admin_name} (#{self.admin_email})")
     puts "Set up #{t.name}."
   end
 end

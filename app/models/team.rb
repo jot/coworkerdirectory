@@ -31,9 +31,9 @@ class Team < ActiveRecord::Base
     bot_access_token
   end
 
-  def notify_inuda
+  def notify_inuda(message)
     t = Team.find_by_domain("inuda")
-    t.notify_admin("#{self.domain}.cabinbot.com created by #{self.admin_name} (#{self.admin_email})")
+    t.notify_admin(message)
   end
 
   def notify_admin(message)

@@ -11,5 +11,7 @@ class SendEnquiryJob < ActiveJob::Base
             "mrkdwn_in": ["text", "pretext"]
         }
     enquiry.user.send_im("Incoming message from someone who's seen your profile:", attachments)
+
+    enquiry.team.notify_inuda("New enquiry for #{enquiry.user_name} from #{enquiry.name} (#{enquiry.email})")
   end
 end
